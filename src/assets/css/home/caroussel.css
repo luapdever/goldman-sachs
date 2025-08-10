@@ -1,0 +1,110 @@
+section.caroussel {
+  width: 100%;
+  height: 220px;
+  background: linear-gradient(220.04deg, #6e4fb6 22.92%, #2e71c5 100%);
+  color: white;
+  overflow: hidden;
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+section.caroussel .element {
+  flex: 0 0 auto;
+  width: 100%;
+  padding: 0px 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  z-index: 999;
+  transition: all 0.5s;
+}
+section.caroussel .element > .details {
+  width: 63%;
+}
+section.caroussel .element > .details .price {
+  margin-top: 8px;
+  display: flex;
+  align-items: center;
+  gap: 3px;
+}
+section.caroussel .element > .details .price > sup {
+  margin-top: 8px;
+}
+section.caroussel .element > .details > h3 {
+  color: var(--color-primary);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  line-clamp: 2;
+  font-size: 18px;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+}
+section.caroussel .element > .details > p {
+  font-size: 12px;
+}
+section.caroussel .element > .details .gs-btn {
+  font-size: 10px;
+  margin-top: 8px;
+  padding: 0px 20px;
+}
+section.caroussel .element > .pro-image {
+  width: 33%;
+}
+section.caroussel .element > .pro-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+section.caroussel::after {
+  content: '';
+  position: absolute;
+  width: 273px;
+  height: 134px;
+  left: 50%;
+  top: -30%;
+  border-radius: 50%;
+  background: rgba(46, 113, 197, 0.6);
+}
+section.caroussel .caroussel-control {
+  position: absolute;
+  width: 100%;
+  top: 50%;
+  left: 0;
+  transform: translate(0, -50%);
+  display: flex;
+  justify-content: space-between;
+  color: white;
+  z-index: 999;
+}
+section.caroussel .caroussel-control button {
+  background: none;
+  border: none;
+  font-size: 35px;
+  color: white;
+  cursor: pointer;
+}
+section.caroussel .caroussel-control button.disabled {
+  color: #aaa;
+  pointer-events: none;
+}
+section.caroussel .caroussel-nav {
+  position: absolute;
+  bottom: 8px;
+  left: 50%;
+  transform: translate(-50%, 0);
+  display: flex;
+  gap: 3px;
+}
+section.caroussel .caroussel-nav .rect {
+  width: 8px;
+  height: 5px;
+  border-radius: 4px;
+  background-color: white;
+  transition: all 0.3s;
+}
+section.caroussel .caroussel-nav .rect.active {
+  width: 22px;
+}

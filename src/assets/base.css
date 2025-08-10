@@ -1,0 +1,106 @@
+/* color palette from <https://github.com/vuejs/theme> */
+:root {
+  --color-primary: #03045E;
+  --color-text: #232323;
+  --color-background: #FFFFFF;
+}
+
+@media (prefers-color-scheme: dark) {
+  
+}
+
+@font-face {
+  font-family: Montserrat-Light;
+  src: url(./fonts/Montserrat/static/Montserrat-Light.ttf);
+}
+
+@font-face {
+  font-family: Montserrat-Medium;
+  src: url(./fonts/Montserrat/static/Montserrat-Medium.ttf);
+}
+
+@font-face {
+  font-family: Montserrat-Medium;
+  src: url(./fonts/Montserrat/static/Montserrat-Bold.ttf);
+  font-weight: bold;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  /* position: relative; */
+}
+
+body {
+  color: var(--color-text);
+  background: var(--color-background);
+  transition: color 0.5s, background-color 0.5s;
+  font-family: Montserrat-Medium,Century Gothic,Arial,sans-serif;
+}
+
+
+
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.4s ease-in-out;
+}
+
+.fade-enter-from,
+.fade-leave-to {
+  opacity: 0;
+}
+
+.fade-enter-to,
+.fade-leave-from {
+  opacity: 1;
+}
+
+.slide-enter-active,
+.slide-leave-active {
+  transition: .4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  position: absolute;
+  z-index: 0;
+}
+
+.slide-enter-from {
+  transform: translateX(100%);
+  filter: blur(5px);
+}
+
+.slide-enter-to {
+  width: 100%;
+  transform: translateX(0%);
+  box-shadow: -20px 0 10px #00000011;
+  z-index: 999;
+  position: absolute;
+}
+.slide-enter-to::before {
+  width: 200%;
+  height: 100%;
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-color: #00000022;
+  opacity: 0.4;
+}
+
+.bounce-enter-active {
+  animation: bounce-in .5s;
+}
+.bounce-leave-active {
+  animation: bounce-in .5s reverse;
+}
+@keyframes bounce-in {
+  0% {
+    transform: scale(0);
+  }
+  50% {
+    transform: scale(1.5);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
