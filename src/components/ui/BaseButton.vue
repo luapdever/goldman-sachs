@@ -33,8 +33,8 @@ defineProps({
 .gs-btn {
   border: none;
   background: none;
-  background: linear-gradient(180deg, #fcd818 0%, #f8c000 100%);
-  color: #202020;
+  background: linear-gradient(180deg, #03045E 0%, #05078b 100%);
+  color: #FFFFFF;
   box-shadow: 0 2px 4px #00000014;
   border-radius: 100px;
   transition: 0.3s;
@@ -44,7 +44,6 @@ defineProps({
   width: fit-content;
   justify-content: center;
   align-items: center;
-  font-family: 'Montserrat-Medium', Century Gothic, Arial, sans-serif;
 }
 .gs-btn>button {
   border: none;
