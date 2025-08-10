@@ -78,7 +78,7 @@ self.addEventListener('notificationclick', (event) => {
                     "Autorisation",
                     {
                         body: "Veuillez autoriser pour cette application l'ouverture des fenêtres pour voir les détails.",
-                        icon: "./img/icons/logo-gs-192.png",
+                        // icon: "./img/icons/logo-gs-192.png",
                     }
                 )
             }

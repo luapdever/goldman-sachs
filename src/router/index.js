@@ -1,6 +1,5 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import DashboardView from '../views/DashboardView.vue'
-import StatisticsView from '../views/StatisticsView.vue'
 import TicketsView from '../views/TicketsView.vue'
 import SingleTicketView from '../views/SingleTicketView.vue'
 import ProfileView from '../views/ProfileView.vue'
@@ -35,19 +34,13 @@ const router = createRouter({
       meta: { title: 'Goldman Sachs', middlewares: ['auth'], page_blank: false, transition_name: 'slide' }
     },
     {
-      path: '/statistics',
-      name: 'statistics',
-      component: StatisticsView,
-      meta: { title: 'Statistiques', middlewares: ['auth'], page_blank: false, transition_name: 'slide' }
-    },
-    {
-      path: '/tickets',
-      name: 'tickets',
+      path: '/machines',
+      name: 'machines',
       component: TicketsView,
-      meta: { title: 'Liste des tickets', middlewares: ['auth'], page_blank: false, transition_name: 'slide' }
+      meta: { title: 'Liste des machines', middlewares: ['auth'], page_blank: false, transition_name: 'slide' }
     },
     {
-      path: '/tickets/:ticket_id',
+      path: '/machines/:ticket_id',
       name: 'single-ticket',
       component: SingleTicketView,
       meta: { title: 'Ticket', middlewares: ['auth'], page_blank: false, transition_name: 'slide' }
@@ -93,6 +86,7 @@ router.beforeEach((to, from) => {
       subscribe_service_worker();
       if(!store.socket || !store.socket.connected) {
         store.socket = init_socket();
+        store.connected = true;
       }
     }
   }

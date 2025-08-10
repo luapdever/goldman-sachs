@@ -30,7 +30,7 @@ const chat_event_handlers = () => {
   //       dangerouslyHTMLString: true,
   //       onClick: (event) => {
   //         if(windowWidth.value > 768) {
-  //           router.replace({ name: 'tickets', hash: '#'+ data.ticket_id + '-discussion' });
+  //           router.replace({ name: 'machines', hash: '#'+ data.ticket_id + '-discussion' });
   //         } else {
   //           router.push({ name: 'single-ticket', params: { ticket_id: data.ticket_id }, hash: '#details' });
   //         }
@@ -49,7 +49,7 @@ const chat_event_handlers = () => {
         dangerouslyHTMLString: true,
         onClick: (event) => {
           if(windowWidth.value > 768) {
-            router.push({ name: 'tickets', hash: '#'+ data.id + '-details' })
+            router.push({ name: 'machines', hash: '#'+ data.id + '-details' })
           } else {
             router.push({ name: 'single-ticket', params: { ticket_id: data.id }, hash: '#details' })
           }
@@ -68,7 +68,7 @@ const chat_event_handlers = () => {
         dangerouslyHTMLString: true,
         onClick: (event) => {
           if(windowWidth.value > 768) {
-            router.push({ name: 'tickets', hash: '#'+ data.id + '-details' })
+            router.push({ name: 'machines', hash: '#'+ data.id + '-details' })
           } else {
             router.push({ name: 'single-ticket', params: { ticket_id: data.id }, hash: '#details' })
           }

@@ -3,17 +3,14 @@ import TheSection from '../components/global/TheSection.vue';
 import { FilterVariant } from 'mdue'
 
 import BaseOffcanvas from '../components/base/BaseOffcanvas.vue';
-import TheTicketsList from '../components/tickets/TheTicketsList.vue';
-import UnreadCount from '../components/tickets/UnreadCount.vue';
+import TheMachinesList from '../components/machines/TheMachinesList.vue';
 </script>
 
 <template>
   <div>
     <main-layout>
       <div class="px-4 py-1 mb-5">
-        <unread-count />
-
-        <TheSection title="Liste des tickets" title-muted>
+        <TheSection title="Liste des machines" title-muted>
           <template v-slot:end-actions>
             <div type="button" class="ticket-filter d-flex align-items-center gap-2" data-bs-toggle="offcanvas" data-bs-target="#ticketFilter" aria-controls="ticketFilter">
               <div>
@@ -36,14 +33,14 @@ import UnreadCount from '../components/tickets/UnreadCount.vue';
             </div>
           </template>
 
-          <the-tickets-list 
-            :tickets="store.tickets_list" 
+          <the-machines-list 
+            :machines="store.machines_list" 
             :page="pagination.page" 
             :count="pagination.count" 
-            @change-page="(page) => { pagination.page = page; get_tickets(true) }" 
+            @change-page="(page) => { pagination.page = page; get_machines(true) }" 
             :is_processing="is_processing" 
-            ticketListId="for_tickets"
-          ></the-tickets-list>
+            ticketListId="for_machines"
+          ></the-machines-list>
         </TheSection>
       </div>
 
@@ -60,7 +57,7 @@ import UnreadCount from '../components/tickets/UnreadCount.vue';
         </template>
         
         <template v-slot:oc-body>
-          <form id="filter_form" @submit="get_tickets(true)" class="p-3">
+          <form id="filter_form" @submit="get_machines(true)" class="p-3">
             <base-input label="Sous catégorie" name="category" type="select" :options="categories_options" ph="Choisir une sous catégorie" v-model="filter_data.category" :field-error="errors.category" />
             <base-input label="Statut" name="status" type="select" :options="statuses" ph="Choisir un statut" v-model="filter_data.status" :field-error="errors.status" />
             <base-input label="Date de début" name="start_date" ph="Choisir la date" type="date" v-model="filter_data.start_date" :field-error="errors.start_date" />
@@ -68,7 +65,7 @@ import UnreadCount from '../components/tickets/UnreadCount.vue';
 
             <div class="w-100 text-center">
               <button @click.prevent class="d-none" data-bs-dismiss="offcanvas" id="ticketFilterClose"></button>
-              <base-button @click.prevent="get_tickets(true)" block>Valider</base-button>
+              <base-button @click.prevent="get_machines(true)" block>Valider</base-button>
               <button class="btn text-info2" @click.prevent="reset($event)">Réinitialiser</button>
             </div>
           </form>
@@ -85,7 +82,7 @@ export default {
     },
     data() {
       return {
-        tickets: [],
+        machines: [],
         is_processing: false,
         in_filtering: false,
         filter_data: {
@@ -98,7 +95,7 @@ export default {
           page: 0,
           count: 0,
         },
-        new_tickets: [0]
+        new_machines: [0]
       }
     },
     computed: {
@@ -118,7 +115,7 @@ export default {
       categories_options() {
         let options = [];
 
-        const cats = store.categories_list;
+        const cats = store.machines_list;
 
         for(const cat of cats) {
           if(cat.subcategories && cat.subcategories.length > 0) {
@@ -180,12 +177,12 @@ export default {
     },
 
     mounted() {
-      this.get_categories_list();
-      this.get_tickets();
+      this.get_machines_list();
+      this.get_machines();
     },
 
     methods: {
-      get_tickets(from_filter = false) {
+      get_machines(from_filter = false) {
         let flter_data = {};
 
         /* Filter options */
@@ -240,7 +237,7 @@ export default {
         this.is_processing = true;
 
         let ajax_config = {
-          url: this.make_ajax_url('/tickets/get-list', 9001),
+          url: this.make_ajax_url('/machines/get-list', 9001),
           type: 'POST',
           max_retry: 2,
           data: flter_data,
@@ -250,26 +247,26 @@ export default {
           this.is_processing = false;
           
           if (_.isUndefined(response.error)) {
-            store.tickets_list = response.content ?? [];
+            store.machines_list = response.content ?? [];
             this.pagination.count = parseInt(response.totalElements ?? 0);
             this.pagination.page = parseInt(response.current ?? 0);
           } else if(!_.isUndefined(response.error)) {
-            store.tickets_list = []
+            store.machines_list = []
           }
         })
       },
-      get_categories_list() {
+      get_machines_list() {
         let ajax_config = {
-          url: this.make_ajax_url('/tickets/categories', 9001),
+          url: this.make_ajax_url('/machines/categories', 9001),
           type: 'GET',
           max_retry: 2,
         }
 
         this.utils_async_ajax(ajax_config, (status, response) => {
           if (!_.isUndefined(response) && _.isArray(response)) {
-            store.categories_list = response
+            store.machines_list = response
           } else if(!_.isUndefined(response.error)) {
-            store.categories_list = []
+            store.machines_list = []
           }
         })
       },
@@ -279,7 +276,7 @@ export default {
           this.filter_data.end_date = "";
         }
 
-        this.get_tickets(true);
+        this.get_machines(true);
       },
       reset() {
         this.filter_data.category = "";
@@ -287,11 +284,11 @@ export default {
         this.filter_data.start_date = "";
         this.filter_data.end_date = "";
 
-        this.get_tickets(true);
+        this.get_machines(true);
 
         window.jQuery("#filter_form")[0].reset();
       }
     },
-    components: { TheSection, BaseOffcanvas, TheTicketsList, UnreadCount }
+    components: { TheSection, BaseOffcanvas, TheMachinesList }
 }
 </script>

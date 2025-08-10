@@ -1,7 +1,7 @@
 @import './base.css';
 
 :root {
-  --color-0: #693305;
+  --color-0: #03045E;
   --color-1: #ff9f00;
   --color-2: #00678F;
   --color-3: #5F052C;
@@ -154,7 +154,7 @@ hr {
 
 
 .gs-h1, .gs-h2, .gs-h3, .gs-h4, .gs-h5, .gs-h6, h1, h2, h3, h4, h5, h6 {
-  font-family: Montserrat-Medium-Medium,Century Gothic,Arial,sans-serif;
+  font-family: Montserrat-Medium,Century Gothic,Arial,sans-serif;
   line-height: 1;
   font-weight: 500;
   margin: 0;

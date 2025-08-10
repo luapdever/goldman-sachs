@@ -68,6 +68,11 @@ export const subscribe_to_push_service = async (register = null) => {
     console.warn("No service worker registration");
     return;
   }
+  
+  if(!store.yt_public_vapid_key) {
+    console.warn("No push service available");
+    return;
+  }
 
   if(utils.methods.utils_get_cookies("push_service_subscribed")) {
     console.log("Subscribed to push service");

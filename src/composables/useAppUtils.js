@@ -330,7 +330,7 @@ export const useAppUtils = () => {
         url: "",
         show_error: true,
         show_remote_error: true,
-        data: {},
+        data: undefined,
         type: "POST",
         dataType: "json",
         retry: 5000,

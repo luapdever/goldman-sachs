@@ -1,5 +1,5 @@
 <script setup>
-import SingleTicket from '../components/tickets/SingleTicket.vue'
+import SingleTicket from '../components/machines/SingleTicket.vue'
 
 </script>
 
@@ -38,7 +38,7 @@ export default {
     load_ticket_details() {
       this.load_in_processing = true;
       let ajax_config = {
-        url: this.make_ajax_url('/tickets/get-details', 9001),
+        url: this.make_ajax_url('/machines/get-details', 9001),
         type: 'POST',
         max_retry: 2,
         data: {

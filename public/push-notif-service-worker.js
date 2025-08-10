@@ -30,7 +30,7 @@ self.addEventListener("push", (event) => {
 self.addEventListener('notificationclick', (event) => {
     event.notification.close();
   
-    let routeUrl = '/tickets/';
+    let routeUrl = '/machines/';
     
     if(event.notification.data && event.notification.data.data) {
         let notif_data = event.notification.data.data;

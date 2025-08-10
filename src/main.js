@@ -26,7 +26,6 @@ import "./assets/theme/b5/bootstrap.min.js";
 import './assets/theme/js/base.js'
 
 import './assets/theme/css/style.css'
-import './assets/theme/bootstrap-icon/font/bootstrap-icons.css'
 
 import './assets/css/theme.css'
 import './assets/css/blank-page.css'

@@ -2,18 +2,18 @@
 
 import { Plus } from 'mdue'
 
-import AddTicketOC from '../tickets/AddTicketOC.vue';
+import AddInvestmentOC from '../machines/AddInvestmentOC.vue';
 </script>
 
 <template>
-    <div v-if="['dashboard', 'tickets'/* , 'profile' */].includes($route.name)" class="bottom-action">
-        <button type="button" data-bs-toggle="offcanvas" data-bs-target="#addTicket" aria-controls="addTicket">
-            <Plus style="font-size: 35px;" class="text-black" />
+    <div v-if="['dashboard', 'machines'/* , 'profile' */].includes($route.name)" class="bottom-action">
+        <button type="button" data-bs-toggle="offcanvas" data-bs-target="#addinvestment" aria-controls="addinvestment">
+            <Plus style="font-size: 20px;" class="text-white" /> Investir
         </button>
     </div>
 
     <div>
-        <AddTicketOC />
+        <AddInvestmentOC />
     </div>
 </template>
 
@@ -29,7 +29,7 @@ export default {
             return window.innerWidth;
         }
     },
-    components: { AddTicketOC }
+    components: { AddInvestmentOC }
 }
 </script>
 
@@ -44,11 +44,10 @@ export default {
 .bottom-action button {
     background: none;
     border: none;
-    background: #fc0;
-    padding: 10px;
-    width: 60px;
-    height: 60px;
-    border-radius: 50%;
+    background: var(--color-primary);
+    color: white;
+    padding: 10px 20px;
+    border-radius: 30px;
     box-shadow: 0px 4px 6px 0px rgba(54, 64, 73, 0.20);
     cursor: pointer;
 }

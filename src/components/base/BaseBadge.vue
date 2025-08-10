@@ -24,7 +24,7 @@ defineProps({
   width: 100%;
 }
 .c-badge.color-0 {
-  background-color: #FDE0C7;
+  background-color: #03045E22;
   color: var(--color-0);
 }
 .c-badge.color-x {
@@ -52,26 +52,7 @@ defineProps({
   background-color: #3ac97726;
   color: var(--color-5);
 }
-/* .c-badge.color-1 {
-  background-color: #D0EAE7;
-  color: var(--color-1);
-}
-.c-badge.color-2 {
-  background-color: #A3E5FF;
-  color: var(--color-2);
-}
-.c-badge.color-3 {
-  background-color: #FCC1DB;
-  color: var(--color-3);
-}
-.c-badge.color-4 {
-  background-color: #FDE0C7;
-  color: var(--color-4);
-}
-.c-badge.color-5 {
-  background-color: #c6b2e6;
-  color: var(--color-5);
-} */
+
 
 .c-badge.outline {
   background: none !important;

@@ -10,15 +10,6 @@ export const init_socket = () => {
   const URL = store.yt_ws_url;
   const path = store.yt_ws_path;
 
-  let auth_cookie = appUtils.utils_get_cookies("access_token");
-  let yt_x_api_key = store.yt_x_api_key;
-
-  const extraHeaders = {
-    Authorization: "Bearer " + auth_cookie,
-    "X-GOU-BABA": "" + yt_x_api_key,
-  };
-
-
   const socket = io(URL, {
     transports: ["websocket"],
     path,

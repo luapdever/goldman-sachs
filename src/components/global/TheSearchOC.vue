@@ -1,7 +1,7 @@
 <script setup>
 import no_result from '../../assets/img/no-result.svg'
 import BaseOffcanvas from '../base/BaseOffcanvas.vue'
-import TheTicketsList from '../tickets/TheTicketsList.vue'
+import TheTicketsList from '../machines/TheMachinesList.vue'
 </script>
 
 <template>
@@ -9,11 +9,11 @@ import TheTicketsList from '../tickets/TheTicketsList.vue'
     <BaseOffcanvas fullscreen headerLight position="end" oc-id="searchOC" @onShown="focus_input($event)">
       <template v-slot:oc-header>
         <form class="w-100">
-          <input id="search_input" type="search" v-model="search" @input="search_tickets($event)" class="form-control search-input" />
+          <input id="search_input" type="search" v-model="search" @input="search_machines($event)" class="form-control search-input" />
         </form>
       </template>
       <template v-slot:oc-body>
-        <div v-if="!search || (!tickets)" class="px-2 d-flex justify-content-center align-items-center">
+        <div v-if="!search || (!machines)" class="px-2 d-flex justify-content-center align-items-center">
           <div class="text-center">
             <img :src="no_result" alt="No result">
             <p class="fw-bold d-none">Aucun élément trouvé, veuillez effectuer votre recherche par mot clé, ou par un numéro</p>
@@ -21,7 +21,7 @@ import TheTicketsList from '../tickets/TheTicketsList.vue'
         </div>
 
         <div v-else class="p-3">
-          <the-tickets-list :tickets="tickets" :is_processing="is_processing" ticketListId="for_search"></the-tickets-list>
+          <the-machines-list :machines="machines" :is_processing="is_processing" ticketListId="for_search"></the-machines-list>
         </div>
       </template>
     </BaseOffcanvas>
@@ -32,7 +32,7 @@ import TheTicketsList from '../tickets/TheTicketsList.vue'
 export default {
   data() {
     return {
-      tickets: [],
+      machines: [],
       search: "",
       is_processing: false,
       timeout_timer: setTimeout(() => {}, 0),
@@ -40,10 +40,10 @@ export default {
   },
   mounted() {},
   methods: {
-    search_tickets() {
+    search_machines() {
       clearTimeout(this.timeout_timer);
 
-      this.tickets = [];
+      this.machines = [];
       if(this.search && this.search.trim()) {
         this.is_processing = true;
       } else {
@@ -51,14 +51,14 @@ export default {
       }
 
       this.timeout_timer = setTimeout(() => {
-        this.get_filtered_tickets();
+        this.get_filtered_machines();
       }, 800);
     },
-    get_filtered_tickets() {
+    get_filtered_machines() {
       this.is_processing = true;
 
       let ajax_config = {
-        url: this.make_ajax_url('/tickets/search', 9001),
+        url: this.make_ajax_url('/machines/search', 9001),
         type: 'POST',
         max_retry: 2,
         data: {
@@ -70,9 +70,9 @@ export default {
         this.is_processing = false;
         
         if (!_.isUndefined(response) && _.isArray(response)) {
-          this.tickets = response
+          this.machines = response
         } else if(!_.isUndefined(response.error)) {
-          this.tickets = []
+          this.machines = []
         }
       })
     },

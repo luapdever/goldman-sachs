@@ -67,9 +67,8 @@ export const useMainStore = defineStore("main", () => {
       label: "Annulé"
     },
   });
-  const categories_list = ref([])
-  const tickets_list = ref([])
-  const pending_tickets = ref([])
+  const machines_list = ref([])
+  const current_investments = ref([])
 
   return {
     current_lang,
@@ -93,8 +92,7 @@ export const useMainStore = defineStore("main", () => {
     yt_ws_url,
     yt_ws_path,
     status_types,
-    categories_list,
-    tickets_list,
-    pending_tickets,
+    machines_list,
+    current_investments,
   };
 });

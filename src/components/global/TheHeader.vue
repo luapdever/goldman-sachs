@@ -1,27 +1,64 @@
 <script setup>
 import { KeyboardBackspace, Menu, HomeOutline, ArchiveOutline, TrendingUp, AccountOutline, AccountArrowLeftOutline, ChevronDown } from 'mdue'
-import { useRoute } from 'vue-router'
+import { useRoute, useRouter } from 'vue-router'
 // import logo from '../../assets/img/logo.svg'
 import gs_search from '../../assets/img/gs_search.svg'
 import TheSearchOC from './TheSearchOC.vue'
-import { useHeader } from '@/composables/useHeader'
 import { useMainStore } from "@/stores"
+import { useAppUtils } from '@/composables/useAppUtils'
+import { computed, onMounted, ref } from 'vue'
+import { getProfile } from '../../services/auth'
 
+
+const router = useRouter()
 const route = useRoute()
 const store = useMainStore()
+const appUtils = useAppUtils();
 
-// Use the header composable
-const {
-  menuOpen,
-  showProfileMenu,
-  isProcessing,
-  pageTitle,
-  user,
-  hasHistory,
-  toggleMenu,
-  logout,
-  cropLeadingDigits
-} = useHeader()
+  // Reactive data
+const menuOpen = ref(false)
+const showProfileMenu = ref(false)
+const isProcessing = ref(false)
+
+// Computed properties
+const pageTitle = computed(() => {
+    return store.page_title || ''
+})
+
+const user = computed(() => {
+    return store.user
+})
+
+const hasHistory = () => {
+    return window.history.length > 2
+}
+
+// Methods
+const getUserInfo = async () => {
+    const response = await getProfile();
+    if(response && response?.user) {
+        store.user = response
+    }
+}
+
+const toggleMenu = (event) => {
+    menuOpen.value = !menuOpen.value
+    store.sidebar_shown = !store.sidebar_shown
+}
+
+const logout = (event) => {
+    if (!confirm("Voulez-vous vraiment vous déconnecter ?")) {
+        return
+    }
+
+    appUtils.utils_delete_cookies("access_tchavi")
+    router.replace({ name: 'login' })
+}
+
+// Lifecycle
+onMounted(() => {
+    getUserInfo()
+})
 </script>
 
 <template>
@@ -45,27 +82,23 @@ const {
 
             <!-- Profile Menu -->
             <div class="d-flex align-items-center gap-2">
-                <button v-if="route.name == 'tickets'" type="button" data-bs-toggle="offcanvas" data-bs-target="#searchOC" aria-controls="searchOC">
-                    <img :src="gs_search" alt="GS Search" />
-                </button>
-
                 <div class="position-relative p-menu">
                     <button @click="showProfileMenu = !showProfileMenu" class="btn d-inline-flex align-items-center">
                         <div class="profile-badge small position-relative">
-                            <span>{{ user ? user?.fullname?.split('')[0] : '' }}</span>
+                            <span>{{ user ? user?.firstname?.split('')[0] : '' }}</span>
                             <span class="u-status" :class="{ 'connected': store.connected }"></span>
                         </div>
-                        <ChevronDown style="font-size: 25px;" />
+                        <ChevronDown style="font-size: 25px;" class="text-white" />
                     </button>
-                    <div v-if="user != null" class="profile-menu" :class="{ 'show': showProfileMenu }" @click.self="showProfileMenu = !showProfileMenu">
+                    <div class="profile-menu" :class="{ 'show': showProfileMenu }" @click.self="showProfileMenu = !showProfileMenu">
                         <div>
                             <div class="px-3">
-                                <div class="font-weight-bold fw-bold">{{ user?.fullname }}</div>
-                                <div class="text-muted">{{ cropLeadingDigits(user?.phone) }}</div>
+                                <div class="font-weight-bold fw-bold">{{ user?.firstname + " " + user?.lastname }}</div>
+                                <div class="text-muted">{{ user?.email }}</div>
                             </div>
                             <hr>
                             <div>
-                                <button :disabled="isProcessing" @click="logout($event)" class="btn text-info2 font-weight-bold fw-bold py-0">
+                                <button :disabled="isProcessing" @click="logout($event)" class="btn text-danger font-weight-bold fw-bold py-0">
                                     {{ !isProcessing ? "Déconnexion" : "..." }}
                                 </button>
                             </div>
@@ -80,38 +113,33 @@ const {
             <div class="menu-content-body px-4 py-5 bg-white">
                 <div v-if="user != null" class="m-profile d-flex align-items-center border-bottom gap-2 pb-3 mb-3">
                     <div class="profile-badge position-relative">
-                        <span>{{ user ? user?.fullname?.split('')[0] : '' }}</span>
+                        <span>{{ user ? user?.firstname?.split('')[0] : '' }}</span>
                         <span class="u-status" :class="{ 'connected': store.connected }"></span>
                     </div>
                     <div>
-                        <div class="fw-bold">{{ user?.fullname }}</div>
-                        <div class="text-muted">{{ cropLeadingDigits(user?.phone) }}</div>
+                        <div class="fw-bold">{{ user?.firstname + " " + user?.lastname }}</div>
+                        <div class="text-muted">{{ user?.email }}</div>
                     </div>
                 </div>
 
                 <div class="menu-list">
                     <router-link @click="toggleMenu($event)" :to="{ name: 'dashboard' }" class="d-flex align-items-center gap-2 mb-3 text-muted">
-                        <div><HomeOutline style="font-size: 30px;" /></div>
+                        <div><HomeOutline style="font-size: 20px;" /></div>
                         <div class="fs-6">Accueil</div>
                     </router-link>
                     
-                    <router-link @click="toggleMenu($event)" :to="{ name: 'tickets' }" class="d-flex align-items-center gap-2 mb-3 text-muted">
-                        <div><ArchiveOutline style="font-size: 30px;" /></div>
-                        <div class="fs-6">Tickets</div>
-                    </router-link>
-                    
-                    <router-link @click="toggleMenu($event)" :to="{ name: 'statistics' }" class="d-flex align-items-center gap-2 mb-3 text-muted">
-                        <div><TrendingUp style="font-size: 30px;" /></div>
-                        <div class="fs-6">Statistiques</div>
+                    <router-link @click="toggleMenu($event)" :to="{ name: 'machines' }" class="d-flex align-items-center gap-2 mb-3 text-muted">
+                        <div><TrendingUp style="font-size: 20px;" /></div>
+                        <div class="fs-6">Machines</div>
                     </router-link>
                     
                     <router-link @click="toggleMenu($event)" :to="{ name: 'profile' }" class="d-flex align-items-center gap-2 mb-3 text-muted">
-                        <div><AccountOutline style="font-size: 30px;" /></div>
+                        <div><AccountOutline style="font-size: 20px;" /></div>
                         <div class="fs-6">Mon compte</div>
                     </router-link>
                     
                     <router-link @click.prevent="($event) => { toggleMenu($event); logout($event) }" :to="{ name: 'profile' }" class="d-flex align-items-center gap-2 mb-3 text-muted">
-                        <div><AccountArrowLeftOutline style="font-size: 30px;" /></div>
+                        <div><AccountArrowLeftOutline style="font-size: 20px;" /></div>
                         <div class="fs-6">Déconnexion</div>
                     </router-link>
                 </div>
@@ -179,14 +207,14 @@ header button {
 }
 
 .profile-badge {
-    background-color: #00678F;
-    color: white;
+    background-color: #eeeeee;
+    color: black;
     width: 50px;
     height: 50px;
     display: flex;
     justify-content: center;
     align-items: center;
-    font-size: 30px;
+    font-size: 20px;
     border-radius: 50%;
 }
 .profile-badge.small {
@@ -236,6 +264,7 @@ header button {
         width: max-content;
         border-radius: 8px;
         background-color: white;
+        color: black;
         padding: 10px 0;
         box-shadow: 0px 0px 15px #00000022;
         z-index: 9999;

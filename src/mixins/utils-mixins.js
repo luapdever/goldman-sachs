@@ -396,7 +396,7 @@ let utils = {
             };
             ajax_config = window._.assign(default_config, ajax_config);
 
-            var auth_cookie = this.utils_get_cookies("access_token");
+            var auth_cookie = this.utils_get_cookies("access_tchavi");
             var yt_x_api_key = store.yt_x_api_key;
             var user_ip_address = store.user_ip_address;
 
@@ -446,7 +446,7 @@ let utils = {
                         return;
                     }
                     else if(response.status === 401) {
-                        self.utils_delete_cookies("access_token");
+                        self.utils_delete_cookies("access_tchavi");
                         self.$router.replace({ name: "login" });
                         return;
                     }
@@ -483,7 +483,7 @@ let utils = {
                     }
 
                     if(error.status === 401) {
-                        self.utils_delete_cookies("access_token");
+                        self.utils_delete_cookies("access_tchavi");
                         self.$router.replace({ name: "login" });
                     }
 

@@ -87,7 +87,7 @@ export default {
   z-index: 999999;
 }
 .offcanvas .offcanvas-header {
-  background-color: #fc0;
+  background-color: var(--color-primary);
 }
 .offcanvas.header-light .offcanvas-header {
   background-color: white;
