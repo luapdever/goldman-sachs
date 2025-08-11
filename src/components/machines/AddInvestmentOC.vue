@@ -155,6 +155,7 @@ const submitRequest = async () => {
     const response = await placeInvestment(formData.value);
     if (response?.id) {
       investment_created.value = response;
+      store.current_investments.push(response);
     }
   } catch (error) {
     console.error('Erreur lors de la connexion:', error);
