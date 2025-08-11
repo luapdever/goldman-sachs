@@ -4,9 +4,11 @@ import TheSection from '../global/TheSection.vue'
 import { ListStatus, Refresh, Close, Check } from 'mdue'
 import DateRangePicker from 'vue3-daterange-picker'
 import { useAppUtils } from '@/composables/useAppUtils'
+import { useMainStore } from '@/stores'
 import { getStatistics } from '../../services/app'
 
 const appUtils = useAppUtils();
+const store = useMainStore();
 
 // Props
 const props = defineProps({
@@ -45,6 +47,23 @@ const locale_data = ref({
   daysOfWeek: ['Dim', 'Lun', 'Mar', 'Mer', 'Jeu', 'Ven', 'Sam'],
   monthNames: ['Janvier', 'Fevrier', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet', 'Août', 'Septembre', 'Octobre', 'Novembre', 'Decembre'],
   firstDay: 0
+})
+
+const currentInvestments = computed(() => {
+  return store.current_investments
+})
+
+const amountInvestments = computed(() => {
+  if (!store.current_investments || !Array.isArray(store.current_investments)) {
+    return 0
+  }
+  return store.current_investments.reduce((total, investment) => {
+    return total + (parseInt(investment.amount) || 0)
+  }, 0)
+})
+
+const availableMachines = computed(() => {
+  return store.machines_list
 })
 
 
@@ -121,12 +140,8 @@ const get_stats = async (from_filter = false) => {
 
 // Lifecycle
 onMounted(() => {
-  get_stats()
+  // get_stats()
 })
-
-// Note: These utility functions need to be imported or defined
-// make_ajax_url, utils_async_ajax, add_error, and _ (lodash) should be available
-// You may need to import them from your existing utilities
 </script>
 
 <template>
@@ -150,7 +165,7 @@ onMounted(() => {
         </div>
       </template>
       <div class="row align-items-stretch">
-        <div class="p-1 col-lg-4 col-6">
+        <div class="p-1 col-lg-4 col-12">
           <base-card>
             <div class="d-flex gap-2 align-items-center">
               <base-badge circle color="0">
@@ -159,7 +174,7 @@ onMounted(() => {
               <div>
                 <span style="font-size: 12px">Total</span>
                 <div style="font-size: 14px" class="fw-bold color-0">
-                  {{ summary?.investments ?? 0 }} investissements
+                  {{ currentInvestments?.length ?? 0 }} investissement{{ currentInvestments?.length > 1 ? "s" : "" }}
                 </div>
               </div>
             </div>
@@ -174,7 +189,7 @@ onMounted(() => {
               <div>
                 <span style="font-size: 12px">Total</span>
                 <div style="font-size: 14px" class="fw-bold color-0">
-                  {{ summary?.machines ?? 0 }} machines
+                  {{ availableMachines?.length ?? 0 }} machine{{ availableMachines?.length > 1 ? "s" : "" }}
                 </div>
               </div>
             </div>
@@ -189,7 +204,7 @@ onMounted(() => {
               <div>
                 <span style="font-size: 12px">Montant investi</span>
                 <div style="font-size: 14px" class="fw-bold color-0">
-                  {{ summary?.amount_investments ?? 0 }} USDT
+                  {{ amountInvestments ?? 0 }} USDT
                 </div>
               </div>
             </div>

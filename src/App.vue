@@ -32,7 +32,7 @@ const chat_event_handlers = () => {
   //         if(windowWidth.value > 768) {
   //           router.replace({ name: 'machines', hash: '#'+ data.ticket_id + '-discussion' });
   //         } else {
-  //           router.push({ name: 'single-ticket', params: { ticket_id: data.ticket_id }, hash: '#details' });
+  //           router.push({ name: 'single-machine', params: { ticket_id: data.ticket_id }, hash: '#details' });
   //         }
   //       }
   //     }
@@ -51,7 +51,7 @@ const chat_event_handlers = () => {
           if(windowWidth.value > 768) {
             router.push({ name: 'machines', hash: '#'+ data.id + '-details' })
           } else {
-            router.push({ name: 'single-ticket', params: { ticket_id: data.id }, hash: '#details' })
+            router.push({ name: 'single-machine', params: { ticket_id: data.id }, hash: '#details' })
           }
         }
       }
@@ -70,7 +70,7 @@ const chat_event_handlers = () => {
           if(windowWidth.value > 768) {
             router.push({ name: 'machines', hash: '#'+ data.id + '-details' })
           } else {
-            router.push({ name: 'single-ticket', params: { ticket_id: data.id }, hash: '#details' })
+            router.push({ name: 'single-machine', params: { ticket_id: data.id }, hash: '#details' })
           }
         }
       }

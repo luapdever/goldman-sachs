@@ -1,9 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import DashboardView from '../views/DashboardView.vue'
-import TicketsView from '../views/TicketsView.vue'
-import SingleTicketView from '../views/SingleTicketView.vue'
+// import MachinesView from '../views/MachinesView.vue'
 import ProfileView from '../views/ProfileView.vue'
-import ComponentsView from '../views/ComponentsView.vue'
 import AboutView from '../views/AboutView.vue'
 import { useMainStore } from "@/stores";
 import { useAppUtils } from "@/composables/useAppUtils";
@@ -33,28 +31,17 @@ const router = createRouter({
       component: DashboardView,
       meta: { title: 'Goldman Sachs', middlewares: ['auth'], page_blank: false, transition_name: 'slide' }
     },
-    {
-      path: '/machines',
-      name: 'machines',
-      component: TicketsView,
-      meta: { title: 'Liste des machines', middlewares: ['auth'], page_blank: false, transition_name: 'slide' }
-    },
-    {
-      path: '/machines/:ticket_id',
-      name: 'single-ticket',
-      component: SingleTicketView,
-      meta: { title: 'Ticket', middlewares: ['auth'], page_blank: false, transition_name: 'slide' }
-    },
+    // {
+    //   path: '/machines',
+    //   name: 'machines',
+    //   component: MachinesView,
+    //   meta: { title: 'Liste des machines', middlewares: ['auth'], page_blank: false, transition_name: 'slide' }
+    // },
     {
       path: '/profile',
       name: 'profile',
       component: ProfileView,
       meta: { title: 'Mon compte', middlewares: ['auth'], page_blank: false, transition_name: 'slide' }
-    },
-    {
-      path: '/components',
-      name: 'components',
-      component: ComponentsView
     },
     {
       path: '/about',

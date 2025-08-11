@@ -135,7 +135,7 @@ onMounted(() => {
   position: fixed;
   bottom: 0;
   left: 0;
-  background-color: #fc0;
+  background-color: var(--color-primary);
 }
 
 .notif-modal {

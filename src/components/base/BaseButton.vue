@@ -45,6 +45,9 @@ defineProps({
   justify-content: center;
   align-items: center;
 }
+.gs-btn:hover {
+  color: #ccc !important;
+}
 .gs-btn>button {
   border: none;
   background: none;

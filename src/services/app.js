@@ -33,7 +33,7 @@ export const getInvestments = async (cb = null) => {
   const response = await appUtils.ajax({
     // contentType: false,
     // processData: false,
-    url: appUtils.makeAjaxUrl(`/investments`),
+    url: appUtils.makeAjaxUrl(`/investments?pagination[limit]=-1`),
     type: "GET",
   }, { showError: true, loadingKey: "sub" }, cb ?? undefined);
 
@@ -57,7 +57,9 @@ export const placeInvestment = async (data, cb = null) => {
     // processData: false,
     url: appUtils.makeAjaxUrl(`/investments`),
     type: "POST",
-    data,
+    data: {
+      data,
+    },
   }, { showError: true, loadingKey: "sub" }, cb ?? undefined);
 
   if(response?.error  || response?.internal_error) {
@@ -78,7 +80,7 @@ export const getMachines = async (cb = null) => {
   const response = await appUtils.ajax({
     // contentType: false,
     // processData: false,
-    url: appUtils.makeAjaxUrl(`/investments`),
+    url: appUtils.makeAjaxUrl(`/machines?pagination[limit]=-1`),
     type: "GET",
   }, { showError: true, loadingKey: "sub" }, cb ?? undefined);
 

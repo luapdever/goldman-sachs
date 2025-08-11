@@ -37,6 +37,7 @@ const props = defineProps({
     multiple: Boolean,
     max: Number,
     disabled: Boolean,
+    readonly: Boolean,
     autocomplete: String,
     pattern: String,
     extraClass: Object,
@@ -188,7 +189,7 @@ onMounted(() => {
         <textarea v-if="type == 'textarea'" :id="name + (arrIndex >= 0 ? '_' + arrIndex : '')" v-model="input_value" :placeholder="ph" :disabled="disabled" class="form-control" :class="{ 'is-invalid': fieldError }" rows="5"></textarea>
         
         <!-- Select -->
-        <select v-else-if="type == 'select'" :id="name + (arrIndex >= 0 ? '_' + arrIndex : '')" v-model="input_value" :disabled="disabled" class="form-select" :class="{ 'is-invalid': fieldError }">
+        <select v-else-if="type == 'select'" :id="name + (arrIndex >= 0 ? '_' + arrIndex : '')" v-model="input_value" :readonly="readonly" :disabled="disabled" class="form-select" :class="{ 'is-invalid': fieldError }">
             <option value="" disabled>{{ ph }}</option>
             <template v-for="(opt, index) in options" :key="'Option '+index">
                 <option v-if="!opt.is_group" :value="opt.value ?? (opt.label ?? opt)">
@@ -244,7 +245,7 @@ onMounted(() => {
             </div> -->
             <VueDatePicker 
                 ref="dp"
-                v-model="input_value" :placeholder="ph" :disabled="disabled" 
+                v-model="input_value" :placeholder="ph" :disabled="disabled" :readonly="readonly" 
                 locale="fr-FR"
                 :enable-time-picker="type.includes('time')"
                 :time-picker="type == 'time'"
@@ -266,7 +267,8 @@ onMounted(() => {
 
         <!-- Radio non boolean type -->
          <div v-else-if="['radio', 'checkbox'].includes(type) && !boolRadio" class="d-flex gap-3 flex-wrap">
-             <div v-for="(opt, ind) in options" :key="'RCheckbox' + ind">
+             <div v-for="(opt, ind) in options" :key="'RCheckbox' + ind" class="d-flex align-items-center gap-0">
+                <span :class="{ checkmark: true, 'checkmark-flex': true, checked: input_value == (opt?.value ?? opt)}"></span>
                 <input :id="`${name}_opt_${ind}`" :type="type" v-model="input_value" :disabled="disabled" :checked="opt?.value == input_value" :value="opt?.value ?? opt" class="form-check-input me-2">
                 <label :for="`${name}_opt_${ind}`" type="button" class="form-check-label">
                     {{ opt?.label ?? opt }}
@@ -320,7 +322,7 @@ onMounted(() => {
         </div>
         
         <!-- Other input type -->
-        <input v-else :id="name + (arrIndex >= 0 ? '_' + arrIndex : '')" :type="type" v-model="input_value" :placeholder="ph" :disabled="disabled" class="form-control" :class="{ 'is-invalid': fieldError, ...extraClass }" :autocomplete="autocomplete" :pattern="pattern" />
+        <input v-else :id="name + (arrIndex >= 0 ? '_' + arrIndex : '')" :type="type" v-model="input_value" :placeholder="ph" :disabled="disabled" :readonly="readonly" class="form-control" :class="{ 'is-invalid': fieldError, ...extraClass }" :autocomplete="autocomplete" :pattern="pattern" />
         
         <p v-if="$slots.desc" class="form-text mt-1 mb-0">
             <slot name="desc"></slot>
@@ -335,7 +337,7 @@ onMounted(() => {
 </template>
 
 <style scoped>
-input::placeholder {
+input::placeholder, input {
     font-size: 13px;
 }
 .field-input {

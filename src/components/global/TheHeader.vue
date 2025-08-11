@@ -36,7 +36,7 @@ const hasHistory = () => {
 // Methods
 const getUserInfo = async () => {
     const response = await getProfile();
-    if(response && response?.user) {
+    if(response && response?.id) {
         store.user = response
     }
 }
@@ -128,10 +128,10 @@ onMounted(() => {
                         <div class="fs-6">Accueil</div>
                     </router-link>
                     
-                    <router-link @click="toggleMenu($event)" :to="{ name: 'machines' }" class="d-flex align-items-center gap-2 mb-3 text-muted">
+                    <!-- <router-link @click="toggleMenu($event)" :to="{ name: 'machines' }" class="d-flex align-items-center gap-2 mb-3 text-muted">
                         <div><TrendingUp style="font-size: 20px;" /></div>
                         <div class="fs-6">Machines</div>
-                    </router-link>
+                    </router-link> -->
                     
                     <router-link @click="toggleMenu($event)" :to="{ name: 'profile' }" class="d-flex align-items-center gap-2 mb-3 text-muted">
                         <div><AccountOutline style="font-size: 20px;" /></div>

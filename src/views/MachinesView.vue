@@ -39,7 +39,7 @@ import TheMachinesList from '../components/machines/TheMachinesList.vue';
             :count="pagination.count" 
             @change-page="(page) => { pagination.page = page; get_machines(true) }" 
             :is_processing="is_processing" 
-            ticketListId="for_machines"
+            machineListId="for_machines"
           ></the-machines-list>
         </TheSection>
       </div>

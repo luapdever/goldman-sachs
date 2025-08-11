@@ -93,6 +93,11 @@ const submitRequest = async () => {
   }
 
   if(flag == 0) return;
+
+  if(formData.value.password != formData.value.password_confirmation) {
+    appUtils.toggleGlobalAlert("Les mots de passe ne correspondent pas.", "error");
+    return;
+  }
   
   inSubmitting.value = true;
 

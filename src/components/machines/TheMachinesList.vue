@@ -1,8 +1,7 @@
 <script setup>
 
-import TheTicket from './TheTicket.vue';
+import TheMachine from './TheMachine.vue';
 import BaseOffcanvas from '../base/BaseOffcanvas.vue';
-import SingleTicket from './SingleTicket.vue';
 import no_result from '../../assets/img/no-result.svg';
 import { ChevronLeft, ChevronRight } from 'mdue';
 
@@ -23,16 +22,16 @@ import { ChevronLeft, ChevronRight } from 'mdue';
 
     <div class="row m-0 p-0">
       <router-link 
-        v-for="(ticket, index) in machines"
-        :key="'Ticket' + index"
-        :to="!(windowWidth > 768) ? { name: 'single-ticket', params: { ticket_id: ticket.id }, hash: '#details' } : '#'+ ticket.id + '-details'"
+        v-for="(machine, index) in machines"
+        :key="'Machine' + index"
+        :to="!(windowWidth > 768) ? { name: 'single-machine', params: { machine_id: machine.id }, hash: '#details' } : '#'+ machine.id + '-details'"
         :replace="windowWidth > 768"
-        @click="!(windowWidth > 768) ? null :view_ticket(ticket.id)"
-        :id="'ticket_el_'+ticket.id"
+        @click="!(windowWidth > 768) ? null :view_machine(machine.id)"
+        :id="'machine_el_'+machine.id"
       >
-        <TheTicket
-          :ticket="ticket"
-          :is_new="is_new_ticket(ticket, index) && !['closed', 'cancelled'].includes(ticket.status)"
+        <TheMachine
+          :machine="machine"
+          :is_new="is_new_machine(machine, index) && !['closed', 'cancelled'].includes(machine.status)"
         />
       </router-link>
 
@@ -48,20 +47,6 @@ import { ChevronLeft, ChevronRight } from 'mdue';
         </button>
       </div>
     </div>
-    
-    <BaseOffcanvas fullscreen position="end" :oc-id="'singleTicket_'+ticketListId" @onShown="load_ticket_details()" @onHidden="handle_hidden()">
-      <template v-slot:oc-header>
-        <h3>Ticket <span v-if="cur_ticket != null">#{{ cur_ticket }}</span></h3>
-      </template>
-      <template v-slot:oc-body>
-        <div v-if="load_in_processing" class="w-100 h-100 d-flex justify-content-center align-items-center">
-          <div class="spinner-border text-primary" role="status"></div>
-        </div>
-        <div v-else>
-          <single-ticket :ticket="current_ticket"></single-ticket>
-        </div>
-      </template>
-    </BaseOffcanvas>
   </div>
 </template>
 
@@ -69,10 +54,10 @@ import { ChevronLeft, ChevronRight } from 'mdue';
 import { toast } from 'vue3-toastify';
 
 export default {
-  components: { SingleTicket },
+  components: {  },
   props: {
     machines: Array,
-    ticketListId: String,
+    machineListId: String,
     is_processing: Boolean,
     no_pagination: {
       type: Boolean,
@@ -92,8 +77,8 @@ export default {
   },
   data() {
     return {
-      cur_ticket: null,
-      current_ticket: null,
+      cur_machine: null,
+      current_machine: null,
       load_in_processing: true,
       unanimated: [],
       windowWidth: window.innerWidth
@@ -106,17 +91,17 @@ export default {
 
     // this.chat_event_handlers();
 
-    this.show_hash_ticket();
+    this.show_hash_machine();
 
     this.$router.afterEach((to, from) => {
-      this.show_hash_ticket();
+      this.show_hash_machine();
     });
   },
   watch: {
-    cur_ticket(newVal, oldVal) {
+    cur_machine(newVal, oldVal) {
       if(this.windowWidth > 768) {
         if(oldVal == null && newVal != null) {
-          let oc_el = document.getElementById('singleTicket_'+this.ticketListId);
+          let oc_el = document.getElementById('singleMachine_'+this.machineListId);
           let bs_oc = new bootstrap.Offcanvas(oc_el);
           bs_oc.show();
         }
@@ -127,14 +112,14 @@ export default {
     chat_event_handlers() {
       // store.socket.on("NEW_TICKET_CHAT_MESSAGE", (data) => {
       //   toast.info(
-      //     "<strong>Message Ticket #"+ data.ticket_id + "</strong> \n" + this.html_encode(this.text_truncate(data.content, 30)), 
+      //     "<strong>Message Machine #"+ data.machine_id + "</strong> \n" + this.html_encode(this.text_truncate(data.content, 30)), 
       //     {
       //       dangerouslyHTMLString: true,
       //       onClick: (event) => {
       //         if(this.windowWidth > 768) {
-      //           this.$router.replace({ name: 'machines', hash: '#'+ data.ticket_id + '-discussion' });
+      //           this.$router.replace({ name: 'machines', hash: '#'+ data.machine_id + '-discussion' });
       //         } else {
-      //           this.$router.push({ name: 'single-ticket', params: { ticket_id: data.ticket_id }, hash: '#details' });
+      //           this.$router.push({ name: 'single-machine', params: { machine_id: data.machine_id }, hash: '#details' });
       //         }
       //       }
       //     }
@@ -143,14 +128,14 @@ export default {
       
       store.socket?.on("TICKET_CLOSED", (data) => {
         toast.info(
-          "<strong>Ticket #"+ data.id + "</strong> \n Ticket fermé.", 
+          "<strong>Machine #"+ data.id + "</strong> \n Machine fermé.", 
           {
             dangerouslyHTMLString: true,
             onClick: (event) => {
               if(this.windowWidth > 768) {
                 this.$router.replace({ name: 'machines', hash: '#'+ data.id + '-details' });
               } else {
-                this.$router.push({ name: 'single-ticket', params: { ticket_id: data.id }, hash: '#details' });
+                this.$router.push({ name: 'single-machine', params: { machine_id: data.id }, hash: '#details' });
               }
             }
           }
@@ -158,14 +143,14 @@ export default {
       });
       store.socket?.on("TICKET_STATUS_UPDATED", (data) => {
         toast.info(
-          "<strong>Ticket #"+ data.id + "</strong> \n Statut de ticket mis à jour.", 
+          "<strong>Machine #"+ data.id + "</strong> \n Statut de machine mis à jour.", 
           {
             dangerouslyHTMLString: true,
             onClick: (event) => {
               if(this.windowWidth > 768) {
                 this.$router.replace({ name: 'machines', hash: '#'+ data.id + '-details' });
               } else {
-                this.$router.push({ name: 'single-ticket', params: { ticket_id: data.id }, hash: '#details' });
+                this.$router.push({ name: 'single-machine', params: { machine_id: data.id }, hash: '#details' });
               }
             }
           }
@@ -175,53 +160,53 @@ export default {
     onResize() {
       this.windowWidth = window.innerWidth
     },
-    is_new_ticket(ticket, index) {
-      let is_new = !this.unanimated.includes(ticket.id) && (new Date(ticket.created_date)).getTime() - ((new Date()).getTime() - 60000*5) > 0;
+    is_new_machine(machine, index) {
+      let is_new = !this.unanimated.includes(machine.id) && (new Date(machine.created_date)).getTime() - ((new Date()).getTime() - 60000*5) > 0;
 
       if(is_new) {
         setTimeout(() => {
-          this.unanimated.push(ticket.id);
+          this.unanimated.push(machine.id);
         }, 60000*5)
       }
 
       return is_new
     },
-    view_ticket(ticket_id) {
-      // this.unanimated.push(ticket.id);
-      this.cur_ticket = ticket_id;
+    view_machine(machine_id) {
+      // this.unanimated.push(machine.id);
+      this.cur_machine = machine_id;
     },
-    show_hash_ticket() {
+    show_hash_machine() {
       if(this.windowWidth > 768) {
         if(this.$route.hash && this.$route.hash.includes('-')) {
           let t_id = this.$route.hash.split('-')[0].split('#')[1];
-          this.view_ticket(t_id);
+          this.view_machine(t_id);
         }
       }
     },
-    load_ticket_details() {
+    load_machine_details() {
       let ajax_config = {
         url: this.make_ajax_url('/machines/get-details', 9001),
         type: 'POST',
         max_retry: 2,
         data: {
-          ticket_id: this.cur_ticket,
+          machine_id: this.cur_machine,
         }
       }
 
       this.utils_async_ajax(ajax_config, (status, response) => {
         this.load_in_processing = false;
         
-        if (!_.isUndefined(response) && !_.isUndefined(response.ticket)) {
-          this.current_ticket = response.ticket;
+        if (!_.isUndefined(response) && !_.isUndefined(response.machine)) {
+          this.current_machine = response.machine;
         } else if(!_.isUndefined(response.error)) {
-          this.current_ticket = null;
+          this.current_machine = null;
         }
       })
     },
     handle_hidden() {
       this.$router.replace('#');
-      this.cur_ticket = null;
-      this.current_ticket = null;
+      this.cur_machine = null;
+      this.current_machine = null;
       this.load_in_processing = true;
     },
   },

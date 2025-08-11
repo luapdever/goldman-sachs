@@ -21,7 +21,7 @@ import TheTicketsList from '../machines/TheMachinesList.vue'
         </div>
 
         <div v-else class="p-3">
-          <the-machines-list :machines="machines" :is_processing="is_processing" ticketListId="for_search"></the-machines-list>
+          <the-machines-list :machines="machines" :is_processing="is_processing" machineListId="for_search"></the-machines-list>
         </div>
       </template>
     </BaseOffcanvas>

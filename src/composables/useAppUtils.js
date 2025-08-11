@@ -236,6 +236,14 @@ export const useAppUtils = () => {
       }
       return a.href;
     },
+    searchWithoutAccents(search, text) {
+      if (!search || !text) return true
+      
+      const normalizedSearch = search.normalize("NFD").replace(/[\u0300-\u036f]/g, "")
+      const normalizedText = text.normalize("NFD").replace(/[\u0300-\u036f]/g, "")
+      
+      return normalizedText.includes(normalizedSearch)
+    },
     validateFields(fields = [], formData = {}) {
       let flag = 1;
 

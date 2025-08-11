@@ -29,6 +29,10 @@ export const useDashboard = () => {
     return store.current_investments
   })
 
+  const availableMachines = computed(() => {
+    return store.machines_list
+  })
+
   // Methods
   const getCurrentInvestments = async (fromFilter = false) => {
     isProcessing.value = true
@@ -59,6 +63,11 @@ export const useDashboard = () => {
     getCurrentInvestments(true)
   }
 
+  const selectMachine = (machineId) => {
+    store.machine_selected = machineId;
+    window.jQuery("#openAddI")?.click();
+  }
+
   // Optional: get statistics method (commented in original)
   const getStats = async () => {
     const response = await getStatistics();
@@ -75,9 +84,11 @@ export const useDashboard = () => {
     
     // Computed
     currentInvestments,
+    availableMachines,
     
     // Methods
     getCurrentInvestments,
+    selectMachine,
     changePage,
     getStats
   }

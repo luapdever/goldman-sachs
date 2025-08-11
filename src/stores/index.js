@@ -28,13 +28,7 @@ export const useMainStore = defineStore("main", () => {
   const settings = ref({
     
   });
-  const user = ref({
-    firstname: 'Luap',
-    lastname: 'Dever',
-    email: 'luapdever511@gmail.com',
-    phone: '+22590667333',
-    company: 'DEVER',
-  });
+  const user = ref({});
   const connected = ref(false);
   const socket = ref(null);
   // const user = ref(null);
@@ -68,6 +62,7 @@ export const useMainStore = defineStore("main", () => {
     },
   });
   const machines_list = ref([])
+  const machine_selected = ref(null)
   const current_investments = ref([])
 
   return {
@@ -94,5 +89,6 @@ export const useMainStore = defineStore("main", () => {
     status_types,
     machines_list,
     current_investments,
+    machine_selected,
   };
 });
