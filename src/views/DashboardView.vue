@@ -45,7 +45,8 @@ onMounted(() => {
                 <p class="fw-bold text-muted m-0 p-0">Aucun investissement trouvé pour le moment.</p>
               </div>
             </div>
-            <table class="table table-striped bg-white">
+
+            <table v-else class="table table-striped bg-white">
               <thead>
                 <tr>
                   <th scope="col">ID</th>
