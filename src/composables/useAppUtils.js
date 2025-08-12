@@ -3,6 +3,7 @@ import { useMainStore } from "@/stores";
 import moment from "moment";
 import { ref } from "vue";
 import sound from '/sound/elegant-notification-sound.mp3';
+import { useRouter } from "vue-router";
 
 const frMonths = {
   January: "Janvier",
@@ -33,7 +34,7 @@ const apiURL = import.meta.env.VITE_API_BASE_URL || "http://localhost:1337/api";
 // const apiURL = import.meta.env.VITE_API_BASE_URL || "https://goudo-goldman.onrender.com/api";
 
 export const useAppUtils = () => {
-  // const router = useRouter();
+  const router = useRouter();
   let errors = ref({});
   const store = useMainStore();
   let isLoading = ref({});
@@ -380,9 +381,11 @@ export const useAppUtils = () => {
           this.toggleLoading(loadingKey);
         }
 
-        // if (response?.status === 401 || response?.code == "UUAUTH") {
-        //   auth_cookie = null;
-        //   // router.go(0);
+        // if (
+        //   response?.status === 401 ||
+        //   response?.error?.name == "UnauthorizedError"
+        // ) {
+        //   this.utils_delete_cookies("access_tchavi");
         //   return;
         // }
 
@@ -420,11 +423,10 @@ export const useAppUtils = () => {
         }
 
         // if (
-        //   error.status === 401 &&
-        //   error.responseJSON?.code == "UUAUTH"
+        //   error.status === 401 ||
+        //   error.responseJSON?.error?.name == "UnauthorizedError"
         // ) {
-        //   auth_cookie = null;
-        //   // router.go(0);
+        //   this.utils_delete_cookies("access_tchavi");
         //   return;
         // }
 

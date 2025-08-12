@@ -3,6 +3,9 @@
 import { Plus } from 'mdue'
 
 import AddInvestmentOC from '../machines/AddInvestmentOC.vue';
+import { useMainStore } from '@/stores'
+const store = useMainStore()
+
 </script>
 
 <template>

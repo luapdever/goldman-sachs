@@ -1,5 +1,5 @@
 <script setup>
-import { ref, computed, onMounted, nextTick } from 'vue'
+import { ref, computed, onMounted, nextTick, watch } from 'vue'
 import { useRouter } from 'vue-router'
 import { useMainStore } from '@/stores'
 import { useAppUtils } from '@/composables/useAppUtils'
@@ -49,8 +49,9 @@ const steps = ref([
         name: 'amount',
         label: 'Montant (en USD)',
         type: 'number',
-        placeholder: 'Entrer le montant que vous voulez investir',
+        placeholder: '',
         required: true,
+        readonly: true,
         value: ""
       },
       {
@@ -85,6 +86,16 @@ const steps = ref([
 
 const currentStepFields = computed(() => steps.value[activeStep.value]?.fields ?? []);
 const isLastStep = computed(() => activeStep.value === steps.value.length - 1);
+
+watch(
+  () => formData.value.machine,
+  (newVal, oldVal) => {
+    if(newVal) {
+      let machine = store.machines_list.find((m) => m.id == newVal);
+      formData.value.amount = machine.amount;
+    }
+  }
+);
 
 // Computed properties
 const machines_options = computed(() => {
@@ -211,7 +222,7 @@ onMounted(() => {
     <BaseOffcanvas 
       fullscreen position="end" oc-id="addinvestment" 
       :noClose="step > 0 && !investment_created"
-      @onClose="($event) => activeStep <= 0 ? close_oc() : goToStep(activeStep - 1)" 
+      @onClose="($event) => activeStep <= 0 ? close_oc() : (activeStep = activeStep - 1)" 
       @onHidden="reset()"
       @onShown="initFields()"
     >
@@ -290,6 +301,7 @@ onMounted(() => {
                   :options="field.options"
                   :field-error="appUtils.hasError(field.name)"
                   :required="field.required"
+                  :readonly="field.readonly ?? false"
                   :autocomplete="field.autocomplete"
                 />
               </div>
@@ -308,7 +320,7 @@ onMounted(() => {
                 </div>
                 
                 <div v-if="activeStep > 0" class="my-3 text-center">
-                  <button @click="($event) => goToStep(activeStep - 1)" class="btn text-info2" type="button">Précédent</button>
+                  <button @click="($event) => activeStep = activeStep - 1" class="btn text-info2" type="button">Précédent</button>
                 </div>
               </div>
             </form>
