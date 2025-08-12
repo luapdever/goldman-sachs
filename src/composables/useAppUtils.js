@@ -381,13 +381,13 @@ export const useAppUtils = () => {
           this.toggleLoading(loadingKey);
         }
 
-        // if (
-        //   response?.status === 401 ||
-        //   response?.error?.name == "UnauthorizedError"
-        // ) {
-        //   this.utils_delete_cookies("access_tchavi");
-        //   return;
-        // }
+        if (
+          response?.status === 401 ||
+          response?.error?.name == "UnauthorizedError"
+        ) {
+          this.utils_delete_cookies("access_tchavi");
+          return;
+        }
 
         if (response && (response?.error?.message || response?.error)) {
           if (showError) {
@@ -422,13 +422,13 @@ export const useAppUtils = () => {
           }
         }
 
-        // if (
-        //   error.status === 401 ||
-        //   error.responseJSON?.error?.name == "UnauthorizedError"
-        // ) {
-        //   this.utils_delete_cookies("access_tchavi");
-        //   return;
-        // }
+        if (
+          error.status === 401 ||
+          error.responseJSON?.error?.name == "UnauthorizedError"
+        ) {
+          this.utils_delete_cookies("access_tchavi");
+          return;
+        }
 
         if (
           error.responseJSON &&
