@@ -281,7 +281,8 @@ onMounted(() => {
                       <input type="radio" name="machine" :id="'machine' + index" :value="machine.id" v-model="formData.machine" class="d-none" />
                       <label class="card text-center" :for="'machine' + index" type="button">
                         <img :src="machine?.image?.url" alt="Machine image" class="mb-1">
-                        <p class="m-0 pt-2 pb-3 px-1">{{ machine.label }}</p>
+                        <p class="m-0 pt-2 pb-0 px-1 fw-bold">{{ machine.label }}</p>
+                        <p class="m-0 pt-0 pb-3 px-1">{{ machine.amount }} USD pour {{ machine.rate }}%</p>
                       </label>
                     </div>
                   </div>

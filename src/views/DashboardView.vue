@@ -85,7 +85,7 @@ onMounted(() => {
                 <img :src="item?.image?.url ?? '...'" class="card-img-top" alt="..." width="100%" height="150" style="object-fit: cover;">
                 <div class="card-body">
                   <h5 class="card-title">{{ item?.label ?? "Inconnu" }}</h5>
-                  <p class="card-text">Générez {{ item?.rate }}% de rendement avec cette machine d'extraction. Investissez maintenant et commencez à gagner dès aujourd'hui </p>
+                  <p class="card-text">Générez <span class="fw-bold">{{ item?.rate }}%</span> de rendement avec cette machine d'extraction. Investissez <span class="fw-bold">{{ item?.amount }} USD</span> et commencez à gagner dès aujourd'hui </p>
                   <base-button 
                     :disabled="inSubmitting" 
                     block 
