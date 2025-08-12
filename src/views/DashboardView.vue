@@ -82,7 +82,7 @@ onMounted(() => {
 
             <div v-for="(item, index) in availableMachines" :key="'Machine' + index" class="col-lg-3 col-12">
               <div class="card">
-                <img :src="item?.image?.url ?? '...'" class="card-img-top" alt="..." width="100%" height="150" style="object-fit: cover;">
+                <img :src="item?.image?.url ?? '...'" class="card-img-top" alt="..." width="100%" height="180" style="object-fit: contain; background-color: #ddd">
                 <div class="card-body">
                   <h5 class="card-title">{{ item?.label ?? "Inconnu" }}</h5>
                   <p class="card-text">Générez <span class="fw-bold">{{ item?.rate }}%</span> de rendement avec cette machine d'extraction. Investissez <span class="fw-bold">{{ item?.amount }} USD</span> et commencez à gagner dès aujourd'hui </p>
