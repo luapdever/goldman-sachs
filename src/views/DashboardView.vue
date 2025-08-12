@@ -80,7 +80,7 @@ onMounted(() => {
               </div>
             </div>
 
-            <div v-for="(item, index) in availableMachines" :key="'Machine' + index" class="col-lg-3 col-12">
+            <div v-for="(item, index) in availableMachines" :key="'Machine' + index" class="col-lg-3 col-12 cursor-pointer" role="button" @click="selectMachine(item?.id)">
               <div class="card">
                 <img :src="item?.image?.url ?? '...'" class="card-img-top" alt="..." width="100%" height="180" style="object-fit: contain; background-color: #ddd">
                 <div class="card-body">
