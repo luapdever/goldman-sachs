@@ -109,7 +109,7 @@ onMounted(() => {
               <h4 class="text-white mb-3">Besoin d'aide ?</h4>
               <p class="text-white-50 mb-4">Notre équipe support est disponible 24/7 pour vous accompagner</p>
               <div class="support-links">
-                <a href="https://t.me/@Alaba_229" target="_blank" class="btn btn-light me-1">
+                <a href="https://t.me/Alaba_229" target="_blank" class="btn btn-light me-1">
                   Telegram Support
                 </a>
                 <a href="mailto:svenlelandais602@gmail.com" class="btn btn-outline-light">
