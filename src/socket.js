@@ -32,7 +32,9 @@ export const init_socket = () => {
   socket.on("pulse", () => {
     console.log("Hi. I'm alive");
     socket.emit('IM_ALIVE', "Hi. I'm alive");
-    getProfile();
+    setTimeout(() => {
+      getProfile();
+    }, 10000);
   });
 
   socket.on('connect_error', (error) => {
