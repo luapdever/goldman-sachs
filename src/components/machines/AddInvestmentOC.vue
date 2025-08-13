@@ -106,10 +106,10 @@ const machines_options = computed(() => {
   })
 
   cats.sort((a, b) => {
-    if (a.label < b.label) {
+    if (a?.label?.length < b?.label?.length) {
       return -1
     }
-    if (a.label > b.label) {
+    if (a?.label?.length > b?.label?.length) {
       return 1
     }
     return 0
@@ -145,7 +145,16 @@ const get_machines_list = async () => {
   const response = await getMachines();
 
   if (!window._.isUndefined(response) && response?.results) {
-    store.machines_list = response?.results
+    let machines = response?.results?.sort((a, b) => {
+    if (a?.label?.length < b?.label?.length) {
+      return -1
+    }
+    if (a?.label?.length > b?.label?.length) {
+      return 1
+    }
+    return 0
+  })
+    store.machines_list = machines;
   } else if (!window._.isUndefined(response?.error)) {
     store.machines_list = []
   }

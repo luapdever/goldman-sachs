@@ -52,7 +52,7 @@ export const getProfile = async (cb = null) => {
     // processData: false,
     url: appUtils.makeAjaxUrl(`/users/me?populate=*`),
     type: "GET",
-  }, { showError: true, loadingKey: "sub" }, cb ?? undefined);
+  }, { showError: false, loadingKey: "sub" }, cb ?? undefined);
 
   if(response?.error  || response?.internal_error) {
     console.log('[Code 200 Error] : ', response?.error, response?.internal_error);
