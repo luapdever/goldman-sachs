@@ -2,6 +2,7 @@ import { reactive } from "vue";
 import { io } from "socket.io-client";
 import { useAppUtils } from '@/composables/useAppUtils.js';
 import { useMainStore } from "@/stores";
+import { getProfile } from "./services/auth";
 
 export const init_socket = () => {
   const appUtils = useAppUtils();
@@ -31,6 +32,7 @@ export const init_socket = () => {
   socket.on("pulse", () => {
     console.log("Hi. I'm alive");
     socket.emit('IM_ALIVE', "Hi. I'm alive");
+    getProfile();
   });
 
   socket.on('connect_error', (error) => {
