@@ -7,6 +7,9 @@ import { useDashboard } from '@/composables/useDashboard'
 import { useAppUtils } from '../composables/useAppUtils'
 import no_result from '../assets/img/no-result.svg';
 
+import { useMainStore } from '@/stores'
+const store = useMainStore()
+
 const appUtils = useAppUtils();
 // Use the machines composable
 const {
@@ -54,15 +57,21 @@ onMounted(() => {
                   <th scope="col">Montant</th>
                   <th scope="col">Date</th>
                   <th scope="col">Adresse Wallet</th>
+                  <th scope="col">Statut</th>
                 </tr>
               </thead>
               <tbody>
                 <tr v-for="(item, index) in currentInvestments" :key="'Investment' + index">
-                  <th scope="row">#{{ item?.id }}</th>
-                  <td>{{ item?.machine?.label ?? "Inconnu" }} ({{ item?.machine?.rate ?? "0" }}%)</td>
-                  <td><span class="fw-bold">{{ item?.amount ?? 0 }} USD</span></td>
-                  <td>{{ appUtils.momentDatetimeFormat(item.date, "DD/MM/YYYY") }}</td>
-                  <td>{{ item?.wallet_type == 'binance' ? "Binance" : "Wallet" }} : {{ item?.wallet_addr ?? "-" }}</td>
+                  <th scope="row" class="pt-2">#{{ item?.id }}</th>
+                  <td class="pt-2">{{ item?.machine?.label ?? "Inconnu" }} ({{ item?.machine?.rate ?? "0" }}%)</td>
+                  <td class="pt-2"><span class="fw-bold">{{ item?.amount ?? 0 }} USD</span></td>
+                  <td class="pt-2">{{ appUtils.momentDatetimeFormat(item.date, "DD/MM/YYYY") }}</td>
+                  <td class="pt-2">{{ item?.wallet_type == 'binance' ? "Binance" : "Wallet" }} : {{ item?.wallet_addr ?? "-" }}</td>
+                  <td>
+                    <base-badge :color="store.status_types[item?.status ?? 'pending'].color">
+                      {{ store.status_types[item?.status ?? "pending"].label }}
+                    </base-badge>
+                    </td>
                 </tr>
               </tbody>
             </table>

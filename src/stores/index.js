@@ -56,9 +56,17 @@ export const useMainStore = defineStore("main", () => {
       color: 2,
       label: "Traité"
     },
+    "enabled": {
+      color: 5,
+      label: "Actif"
+    },
     "cancelled": {
       color: 3,
       label: "Annulé"
+    },
+    "disabled": {
+      color: 3,
+      label: "Inactif"
     },
   });
   const machines_list = ref([])
