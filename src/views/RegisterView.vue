@@ -111,6 +111,7 @@ const submitRequest = async () => {
   const response = await signUp(formData.value);
   if(response && response?.user) {
     // scrollToCtn();
+    appUtils.toggleGlobalAlert("Inscription réussie. veuillez consulter votre boite mail.", "success");
     router.push({ name: 'login' })
   }
 
