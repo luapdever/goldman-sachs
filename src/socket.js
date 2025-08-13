@@ -27,6 +27,11 @@ export const init_socket = () => {
   socket.on("disconnect", () => {
     store.connected = false;
   });
+  
+  socket.on("pulse", () => {
+    console.log("Hi. I'm alive");
+    socket.emit('IM_ALIVE', "Hi. I'm alive");
+  });
 
   socket.on('connect_error', (error) => {
     console.error('WebSocket connection error:', error);
