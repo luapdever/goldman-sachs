@@ -386,6 +386,7 @@ export const useAppUtils = () => {
           response?.error?.name == "UnauthorizedError"
         ) {
           this.utils_delete_cookies("access_tchavi");
+          router.push({ name: "login" });
           return;
         }
 
@@ -427,6 +428,7 @@ export const useAppUtils = () => {
           error.responseJSON?.error?.name == "UnauthorizedError"
         ) {
           this.utils_delete_cookies("access_tchavi");
+          router.push({ name: "login" });
           return;
         }
 
