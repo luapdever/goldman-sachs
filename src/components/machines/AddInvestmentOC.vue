@@ -6,7 +6,7 @@ import { useAppUtils } from '@/composables/useAppUtils'
 import no_result from '../../assets/img/no-result.svg'
 import BaseOffcanvas from '../base/BaseOffcanvas.vue'
 import { CheckCircle, ContentCopy, Check, Information } from 'mdue'
-import { getMachines, placeInvestment } from '../../services/app'
+import { getMachines, placeInvestment, uploadFile } from '../../services/app'
 
 // Composables
 const router = useRouter()
@@ -78,6 +78,16 @@ const steps = ref([
         placeholder: 'Entrer votre adresse Wallet',
         required: true,
         autocomplete: 'off',
+        value: ""
+      },
+      {
+        name: 'proof',
+        label: 'Capture du dépôt',
+        type: 'file',
+        placeholder: 'Téléverser la capture de votre dépôt',
+        required: true,
+        allowed_exts: ["png", "jpeg", "jpg"],
+        accept: "image/png,image/jpeg",
         value: ""
       }
     ]
@@ -172,7 +182,26 @@ const submitRequest = async () => {
   inSubmitting.value = true;
 
   try {
-    const response = await placeInvestment(formData.value);
+    const payload = { ...formData.value };
+
+    // Upload obligatoire de la capture de dépôt avant création
+    const proofFile = Array.isArray(payload.proof) ? payload.proof[0] : payload.proof;
+    if (!proofFile) {
+      appUtils.toggleGlobalAlert("Veuillez joindre la capture de votre dépôt.", "danger");
+      inSubmitting.value = false;
+      return;
+    }
+
+    const uploaded = await uploadFile(proofFile);
+    const fileId = Array.isArray(uploaded) ? uploaded[0]?.id : uploaded?.id;
+    if (!fileId) {
+      appUtils.toggleGlobalAlert("Échec de l'envoi de la capture, veuillez réessayer.", "danger");
+      inSubmitting.value = false;
+      return;
+    }
+    payload.proof = fileId;
+
+    const response = await placeInvestment(payload);
     if (response?.id) {
       investment_created.value = response;
       store.current_investments.push(response);
@@ -309,6 +338,8 @@ onMounted(() => {
                   v-model="formData[field.name]"
                   :ph="field.placeholder"
                   :options="field.options"
+                  :allowed_exts="field.allowed_exts"
+                  :accept="field.accept"
                   :field-error="appUtils.hasError(field.name)"
                   :required="field.required"
                   :readonly="field.readonly ?? false"

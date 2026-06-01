@@ -723,6 +723,20 @@ textarea {
 #loader {
     background: var(--oy-bg) !important;
 }
+
+/* Labels de formulaire lisibles sur fond sombre (override du kit) */
+.form-label,
+.form-group .form-label,
+label.form-label,
+.form-group.basic .form-label {
+    color: var(--oy-text) !important;
+}
+.form-group .input-wrapper.active .form-label,
+.form-group .input-wrapper.not-empty .form-label {
+    color: var(--oy-gold) !important;
+}
+.form-label .text-danger,
+.required .text-danger { color: var(--oy-danger) !important; }
 .form-control, .form-select, .input-group-text {
     background-color: var(--oy-surface-2);
     border-color: var(--oy-border);
