@@ -87,10 +87,12 @@ export default {
   z-index: 999999;
 }
 .offcanvas .offcanvas-header {
-  background-color: var(--color-primary);
+  background: linear-gradient(135deg, #1a1a1f 0%, #0b0b0d 100%);
+  border-bottom: 1px solid var(--oy-gold);
+  color: var(--oy-gold);
 }
 .offcanvas.header-light .offcanvas-header {
-  background-color: white;
+  background-color: var(--oy-surface-2);
 }
 .offcanvas.offcanvas-bottom .offcanvas-header{
   border-radius: 8px 8px 0 0;
@@ -99,11 +101,11 @@ export default {
   padding: 0;
 }
 .offcanvas.header-light .offcanvas-body {
-  background-color: #F3F3F1;
+  background-color: var(--oy-surface);
 }
 .offcanvas-header .btn-close {
   position: absolute;
-  background-color: white;
+  background-color: var(--oy-gold);
   border-radius: 50%;
   opacity: 1;
 }

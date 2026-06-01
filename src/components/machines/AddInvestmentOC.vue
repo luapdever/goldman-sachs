@@ -316,7 +316,7 @@ onMounted(() => {
                 />
               </div>
 
-              <div class="position-sticky w-100 bottom-0 start-0 bg-white px-2 py-3">
+              <div class="position-sticky w-100 bottom-0 start-0 px-2 py-3" style="background: var(--oy-surface);">
                 <div>
                   <base-button 
                     :disabled="inSubmitting" 
@@ -384,8 +384,8 @@ onMounted(() => {
   transition: .3s;
 } 
 .submach .machine-radio input:checked ~ label {
-  background-color: var(--color-primary);
-  color: white;
+  background: var(--oy-gold-grad);
+  color: var(--oy-bg);
   font-weight: bold;
 }
 .submach .machine-radio label>img {
@@ -393,11 +393,11 @@ onMounted(() => {
   width: 100%;
   height: 80px;
   object-fit: cover;
-  background-color: #eee;
+  background-color: var(--oy-surface-2);
   transition: .3s;
 }
 .submach .machine-radio input:checked ~ label>img {
-  background-color: #eee;
+  background-color: var(--oy-surface-2);
   opacity: 0.6;
 }
 </style>

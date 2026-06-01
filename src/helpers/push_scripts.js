@@ -33,7 +33,7 @@ export const register_service_worker = async (file_name = 'service-worker.js') =
   if ('serviceWorker' in navigator) {
     return await navigator.serviceWorker
       .register(file_name, {
-        scope: '/goldman-sachs/'
+        scope: '/'
       });
   } else {
     console.log("Service Worker not present in Navigator");

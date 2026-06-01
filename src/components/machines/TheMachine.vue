@@ -88,12 +88,12 @@ onBeforeUnmount(() => {
     font-size: 25px;
     padding: 5px !important;
     position: relative;
-    color: black;
-    stroke: black;
+    color: var(--oy-text);
+    stroke: var(--oy-text);
 }
 .message-badge.muted {
-    color: #999;
-    stroke: #999;
+    color: var(--oy-text-dim);
+    stroke: var(--oy-text-dim);
 }
 .message-badge>span {
     position: absolute;

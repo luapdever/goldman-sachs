@@ -83,13 +83,13 @@ export default {
 
 <style scoped>
 .offcanvas.header-light .offcanvas-header {
-  background-color: white;
+  background-color: var(--oy-surface-2);
 }
 .offcanvas.header-light .offcanvas-body {
-  background-color: #F3F3F1;
+  background-color: var(--oy-surface);
 }
 .offcanvas .offcanvas-footer {
-  background-color: #ffffff;
+  background-color: var(--oy-surface-2);
 }
 /* .offcanvas-header .btn-close {
   position: absolute;

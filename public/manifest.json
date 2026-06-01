@@ -1,10 +1,10 @@
 {
-  "name": "Goldman Sachs",
-  "short_name": "YTi",
-  "theme_color": "#ffffff",
-  "start_url": "/goldman-sachs/",
+  "name": "Oyoyo",
+  "short_name": "Oyoyo",
+  "theme_color": "#0B0B0D",
+  "start_url": "/",
   "display": "standalone",
-  "background_color": "#ffffff",
+  "background_color": "#0B0B0D",
   "icons": [
     {
       "src": "./img/icons/logo-gs-192.png",

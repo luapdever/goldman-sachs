@@ -12,7 +12,7 @@ export const useMainStore = defineStore("main", () => {
   const subscribed_to_push = ref(false);
   const configs = ref(null);
   const user_ip_address = ref(null);
-  const page_title = ref('Goldman Sachs');
+  const page_title = ref('Oyoyo');
   const current_tab_index = ref(0);
   const alert = ref({ show: false });
 

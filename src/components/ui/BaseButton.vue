@@ -32,10 +32,10 @@ defineProps({
 <style scoped>
 .gs-btn {
   border: none;
-  background: none;
-  background: linear-gradient(180deg, #03045E 0%, #05078b 100%);
-  color: #FFFFFF;
-  box-shadow: 0 2px 4px #00000014;
+  background: var(--oy-gold-grad);
+  color: var(--oy-bg);
+  font-weight: 700;
+  box-shadow: var(--oy-shadow-gold);
   border-radius: 100px;
   transition: 0.3s;
   padding: 8px 30px;
@@ -45,25 +45,33 @@ defineProps({
   justify-content: center;
   align-items: center;
 }
+.gs-btn:hover {
+  filter: brightness(1.06);
+  transform: translateY(-1px);
+}
 .gs-btn>button {
   border: none;
   background: none;
   color: inherit;
+  font-weight: inherit;
 }
 .gs-btn.outline {
   background: none;
-  border: 1.2px solid var(--color-primary);
-  color: var(--color-primary);
+  border: 1.2px solid var(--oy-gold);
+  color: var(--oy-gold);
+  box-shadow: none;
 }
 .gs-btn.dark {
   background: none;
-  background-color: #232323;
-  color: white;
+  background-color: var(--oy-surface-2);
+  border: 1px solid var(--oy-border);
+  color: var(--oy-text);
+  box-shadow: none;
 }
 .gs-btn.outline.dark {
   background: none;
-  border: 1.2px solid #232323;
-  color: #232323;
+  border: 1.2px solid var(--oy-border);
+  color: var(--oy-text-muted);
 }
 .gs-btn.noround {
   border-radius: 8px;
@@ -82,9 +90,9 @@ defineProps({
   margin-left: auto;
 }
 .gs-btn.danger {
-  background: crimson;
-  border-color: crimson;
-  color: white;
+  background: var(--oy-danger);
+  border-color: var(--oy-danger);
+  color: #fff;
 }
 /* .gs-btn[disabled] {
   background: #ddd !important;

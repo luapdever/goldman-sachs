@@ -55,14 +55,15 @@ watch(alert, () => {
     padding: 20px !important;
     border: 0 !important;
     border-radius: 0 !important;
-    background-color: white;
+    background-color: var(--oy-surface);
+    color: var(--oy-text);
     transform: translateY(-100%);
     transition: transform 0.4s;
-    box-shadow: 0 0 5px #00000033;
+    box-shadow: var(--oy-shadow);
 }
 .alert.alert-success {
-    background-color: green;
-    color: white;
+    background-color: var(--oy-success);
+    color: var(--oy-bg);
 }
 .alert>p {
     margin: 0;

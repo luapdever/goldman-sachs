@@ -148,9 +148,9 @@ onMounted(() => {
       <form @submit.prevent="goToStep()" class="register-ctn w-100 vh-100 p-3 d-flex justify-content-center align-items-center flex-column">
         <div v-if="activeStep == 0" class="w-100">
           <div class="text-center">
-            <h2 class="mt-3">Inscription - <span class="fw-bold">Goldman</span> Sachs</h2>
-            <p class="mt-1 px-4">
-              Veuillez entrer vos informations pour vous inscrire.
+            <h1 class="oy-brand mt-3">OYOYO</h1>
+            <p class="oy-tagline mt-1 px-4">
+              Créez votre compte et commencez à investir.
             </p>
           </div>
           <div class="mt-3">

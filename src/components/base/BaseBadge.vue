@@ -16,47 +16,46 @@ defineProps({
 <style scoped>
 .c-badge {
   display: inline-block;
-  background-color: #eee;
-  color: black;
+  background-color: var(--oy-surface-2);
+  color: var(--oy-text);
 }
 .c-badge.block {
   display: block;
   width: 100%;
 }
 .c-badge.color-0 {
-  background-color: #03045E22;
+  background-color: rgba(var(--oy-gold-rgb), 0.14);
   color: var(--color-0);
 }
 .c-badge.color-x {
-  background-color: #A3E5FF;
+  background-color: rgba(var(--oy-gold-rgb), 0.14);
   color: var(--color-x);
 }
 .c-badge.color-1 {
-  background-color: #ff9f0026;
+  background-color: rgba(232, 199, 101, 0.15);
   color: var(--color-1);
 }
 .c-badge.color-2 {
-  background-color: #A3E5FF;
-  /* background-color: #0d99ff33; */
+  background-color: rgba(90, 182, 216, 0.15);
   color: var(--color-2);
 }
 .c-badge.color-3 {
-  background-color: #FCC1DB;
-  color: var(--color-3);
+  background-color: rgba(168, 132, 42, 0.18);
+  color: var(--color-1);
 }
 .c-badge.color-4 {
-  background-color: #ff5e5e26;
+  background-color: rgba(255, 94, 94, 0.15);
   color: var(--color-4);
 }
 .c-badge.color-5 {
-  background-color: #3ac97726;
+  background-color: rgba(58, 201, 119, 0.15);
   color: var(--color-5);
 }
 
 
 .c-badge.outline {
   background: none !important;
-  border: 1px solid black;
+  border: 1px solid var(--oy-border);
 }
 .c-badge.outline.color-x {
   border-color: var(--color-x);

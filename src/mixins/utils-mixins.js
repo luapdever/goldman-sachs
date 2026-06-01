@@ -561,7 +561,7 @@ let utils = {
             // return http.status != 404;
         },
         utils_set_page_title: function (title) {
-            document.title = title + " | Goldman Sachs" || "Goldman Sachs";
+            document.title = title + " | Oyoyo" || "Oyoyo";
         },
         formatToAmount(amount, devise) {
             return new Intl.NumberFormat("de-DE", {

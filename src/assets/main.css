@@ -1,20 +1,15 @@
 @import './base.css';
 
 :root {
-  --color-0: #03045E;
-  --color-1: #ff9f00;
-  --color-2: #00678F;
-  --color-3: #5F052C;
-  --color-4: #ff5e5e;
-  --color-5: #3ac977;
-  --color-x: #00678F;
+  /* Palette utilitaire remappée sur la charte Oyoyo (dark luxe / or) */
+  --color-0: var(--oy-gold);       /* accent principal (or) */
+  --color-1: var(--oy-gold-soft);  /* or clair */
+  --color-2: var(--oy-info);       /* info */
+  --color-3: var(--oy-gold-deep);  /* or foncé */
+  --color-4: var(--oy-danger);     /* danger */
+  --color-5: var(--oy-success);    /* succès */
+  --color-x: var(--oy-gold);       /* accent or */
   --bs-overlay-z-index: 9999;
-  
-  /* --color-1: #15655B;
-  --color-2: #00678F;
-  --color-3: #5F052C;
-  --color-4: #693305;
-  --color-5: #6610f2; */
 }
 
 .color-0 {
@@ -62,11 +57,12 @@ a,
 .main-container {
   margin-top: 70px;
   padding-bottom: 15px;
-  background-color: #F3F3F1;
+  background-color: var(--oy-bg);
+  color: var(--oy-text);
   /* transition: 0.4s; */
 }
 .main-container.white {
-  background-color: white;
+  background-color: var(--oy-bg);
 }
 .main-container.fullscreen {
   min-height: calc(100vh - 70px);
@@ -95,7 +91,7 @@ a,
 }
 hr {
   border: 0;
-  border-top: 1px solid #ddd;
+  border-top: 1px solid var(--oy-border);
 }
 .t-overlay {
   position: absolute;
@@ -103,7 +99,8 @@ hr {
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: #ffffffbb;
+  background-color: rgba(11, 11, 13, 0.72);
+  backdrop-filter: blur(2px);
   content: "";
   display: flex;
   justify-content: center;
@@ -115,8 +112,38 @@ hr {
 
 
 .bg-primary {
-  background-color: var(--color-primary) !important;
-  color: black;
+  background: var(--oy-gold-grad) !important;
+  color: var(--oy-bg) !important;
+}
+.bg-gold {
+  background: var(--oy-gold-grad) !important;
+  color: var(--oy-bg) !important;
+}
+
+/* Wordmark de marque Oyoyo (or premium) */
+.oy-brand {
+  font-weight: 800;
+  letter-spacing: 0.22em;
+  font-size: 2.4rem;
+  text-transform: uppercase;
+  background: var(--oy-gold-grad);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: var(--oy-gold);
+  text-shadow: 0 2px 18px rgba(var(--oy-gold-rgb), 0.25);
+  margin: 0;
+}
+.oy-tagline {
+  color: var(--oy-text-muted);
+  font-size: 0.95rem;
+  line-height: 1.5;
+}
+.text-gold {
+  color: var(--oy-gold) !important;
+}
+.text-muted, .text-secondary {
+  color: var(--oy-text-muted) !important;
 }
 
 .text-info2 {
@@ -128,8 +155,8 @@ hr {
 }
 .bg-muted {
   background: none;
-  background-color: #E1E1E1 !important;
-  color: white;
+  background-color: var(--oy-surface-2) !important;
+  color: var(--oy-text-muted);
 }
 
 .border-info2 {
@@ -207,7 +234,8 @@ hr {
   position: absolute;
   top: -8px;
   right: -8px;
-  background-color: white;
+  background: var(--oy-gold-grad);
+  color: var(--oy-bg);
   width: 18px;
   height: 18px;
   border-radius: 100%;
@@ -252,7 +280,7 @@ hr {
   width: 100%;
   height: 4px;
   border-radius: 5px;
-  background-color: black;
+  background-color: var(--oy-gold);
   content: "";
   position: absolute;
   left: 0;

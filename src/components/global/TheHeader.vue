@@ -68,12 +68,12 @@ onMounted(() => {
             <div class="d-flex align-items-center gap-2">
                 <template v-if="route.name == 'dashboard'">
                     <button type="button" class="p-0" @click="toggleMenu($event)">
-                        <Menu style="font-size: 25px;" class="text-white" />
+                        <Menu style="font-size: 25px;" class="text-gold" />
                     </button>
                     <!-- <img :src="logo" alt="GS Logo" width="40" /> -->
                 </template>
                 <div type="button" v-else @click="hasHistory() ? router.go(-1) : router.push('/')">
-                    <KeyboardBackspace style="font-size: 25px;" class="text-white" />
+                    <KeyboardBackspace style="font-size: 25px;" class="text-gold" />
                 </div>
                 <div>
                     <h4>{{ pageTitle }}</h4>
@@ -88,7 +88,7 @@ onMounted(() => {
                             <span>{{ user ? user?.firstname?.split('')[0] : '' }}</span>
                             <span class="u-status" :class="{ 'connected': store.connected }"></span>
                         </div>
-                        <ChevronDown style="font-size: 25px;" class="text-white" />
+                        <ChevronDown style="font-size: 25px;" class="text-gold" />
                     </button>
                     <div class="profile-menu" :class="{ 'show': showProfileMenu }" @click.self="showProfileMenu = !showProfileMenu">
                         <div>
@@ -110,7 +110,7 @@ onMounted(() => {
 
         <!-- Menu -->
         <div class="menu-content" :class="{ show: menuOpen }" @click.self="toggleMenu($event)">
-            <div class="menu-content-body px-4 py-5 bg-white">
+            <div class="menu-content-body px-4 py-5">
                 <div v-if="user != null" class="m-profile d-flex align-items-center border-bottom gap-2 pb-3 mb-3">
                     <div class="profile-badge position-relative">
                         <span>{{ user ? user?.firstname?.split('')[0] : '' }}</span>
@@ -157,9 +157,13 @@ header {
     width: 100%;
     height: 70px;
     z-index: 9999;
-    background: #03045E;
-    color: white;
-    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.1);
+    background: linear-gradient(180deg, #15151A 0%, #0B0B0D 100%);
+    color: var(--oy-text);
+    border-bottom: 1px solid var(--oy-border);
+    box-shadow: 0px 6px 20px rgba(0, 0, 0, 0.4);
+}
+header h4 {
+    color: var(--oy-gold);
 }
 
 header h4 {
@@ -201,14 +205,27 @@ header button {
     overflow: auto;
     transform: translateX(-100%);
     transition: .4s;
+    background: var(--oy-surface);
+    border-right: 1px solid var(--oy-border);
+}
+.menu-list a {
+    color: var(--oy-text-muted);
+    padding: 8px 10px;
+    border-radius: 10px;
+    transition: .25s;
+}
+.menu-list a:hover, .menu-list a.router-link-active {
+    color: var(--oy-gold) !important;
+    background: var(--oy-surface-2);
 }
 .menu-content.show .menu-content-body {
     transform: translateX(0);
 }
 
 .profile-badge {
-    background-color: #eeeeee;
-    color: black;
+    background: var(--oy-gold-grad);
+    color: var(--oy-bg);
+    font-weight: 700;
     width: 50px;
     height: 50px;
     display: flex;
@@ -216,6 +233,7 @@ header button {
     align-items: center;
     font-size: 20px;
     border-radius: 50%;
+    box-shadow: var(--oy-shadow-gold);
 }
 .profile-badge.small {
     width: 30px;
@@ -262,11 +280,12 @@ header button {
         right: 30px;
         top: 65px;
         width: max-content;
-        border-radius: 8px;
-        background-color: white;
-        color: black;
+        border-radius: 12px;
+        background-color: var(--oy-surface);
+        border: 1px solid var(--oy-border);
+        color: var(--oy-text);
         padding: 10px 0;
-        box-shadow: 0px 0px 15px #00000022;
+        box-shadow: var(--oy-shadow);
         z-index: 9999;
     }
     .profile-menu>div::before {
@@ -276,7 +295,9 @@ header button {
         position: absolute;
         top: 0;
         right: 18px;
-        background-color: white;
+        background-color: var(--oy-surface);
+        border-left: 1px solid var(--oy-border);
+        border-top: 1px solid var(--oy-border);
         transform: rotateZ(45deg) translateY(-55%);
     }
     .profile-menu.show {

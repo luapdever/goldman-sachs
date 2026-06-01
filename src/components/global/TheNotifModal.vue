@@ -144,7 +144,7 @@ onMounted(() => {
   left: 0;
   height: 100vh !important;
   z-index: 99999;
-  background: rgba(255, 255, 255, 0.25);
+  background: rgba(0, 0, 0, 0.55);
   backdrop-filter: blur(7.5px);
   animation: animateDCtn .2s linear;
 }
@@ -157,10 +157,12 @@ onMounted(() => {
   width: 85%;
   max-width: 450px;
   max-height: 80vh;
-  background-color: white;
+  background-color: var(--oy-surface);
+  color: var(--oy-text);
+  border: 1px solid var(--oy-border);
   border-radius: 30px;
   padding: 15px;
-  box-shadow: 0px 0px 5px #00000033;
+  box-shadow: var(--oy-shadow);
   animation: animateCCtnDIV .2s linear;
 }
 </style>

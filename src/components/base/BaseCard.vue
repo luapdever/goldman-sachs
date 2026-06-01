@@ -11,11 +11,11 @@ export default {
   props: {
     bg: {
       type: String,
-      default: "light",
+      default: "",
     },
     textColor: {
       type: String,
-      default: "dark",
+      default: "",
     },
     animated: {
       type: Boolean,
@@ -47,6 +47,6 @@ export default {
   animation: fadeIn 0.8s;
 }
 .card.card-new {
-  border-left: 8px solid #03045E;
+  border-left: 8px solid var(--oy-gold);
 }
 </style>

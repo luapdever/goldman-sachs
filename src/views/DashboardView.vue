@@ -49,7 +49,7 @@ onMounted(() => {
               </div>
             </div>
 
-            <table v-else class="table table-striped bg-white">
+            <table v-else class="table table-striped table-hover oy-table">
               <thead>
                 <tr>
                   <th scope="col">ID</th>
@@ -91,7 +91,7 @@ onMounted(() => {
 
             <div v-for="(item, index) in availableMachines" :key="'Machine' + index" class="col-lg-3 col-12 cursor-pointer mb-2" role="button" @click="selectMachine(item?.id)">
               <div class="card">
-                <img :src="item?.image?.url ?? '...'" class="card-img-top" alt="..." width="100%" height="180" style="object-fit: contain; background-color: #ddd">
+                <img :src="item?.image?.url ?? '...'" class="card-img-top" alt="..." width="100%" height="180" style="object-fit: contain; background-color: var(--oy-surface-2)">
                 <div class="card-body">
                   <h5 class="card-title">{{ item?.label ?? "Inconnu" }}</h5>
                   <p class="card-text">Générez <span class="fw-bold">{{ item?.rate }}%</span> de rendement avec cette machine d'extraction. Investissez <span class="fw-bold">{{ item?.amount }} USD</span> et commencez à gagner dès aujourd'hui </p>
@@ -115,13 +115,13 @@ onMounted(() => {
         >
           <div class="support-banner mb-4">
             <div class="support-content text-center">
-              <h4 class="text-white mb-3">Besoin d'aide ?</h4>
-              <p class="text-white-50 mb-4">Notre équipe support est disponible 24/7 pour vous accompagner</p>
+              <h4 class="oy-support-title mb-3">Besoin d'aide ?</h4>
+              <p class="oy-support-text mb-4">Notre équipe support est disponible 24/7 pour vous accompagner</p>
               <div class="support-links">
-                <a href="https://t.me/Alaba_229" target="_blank" class="btn btn-light me-1">
+                <a href="https://t.me/Alaba_229" target="_blank" class="btn btn-primary me-1">
                   Telegram Support
                 </a>
-                <a href="mailto:svenlelandais602@gmail.com" class="btn btn-outline-light">
+                <a href="mailto:svenlelandais602@gmail.com" class="btn btn-outline-primary">
                   Email
                 </a>
               </div>
@@ -136,14 +136,36 @@ onMounted(() => {
 </template>
 
 <style scoped>
+.oy-table {
+  --bs-table-bg: var(--oy-surface);
+  --bs-table-color: var(--oy-text);
+  --bs-table-striped-bg: var(--oy-surface-2);
+  --bs-table-striped-color: var(--oy-text);
+  --bs-table-hover-bg: var(--oy-surface-3);
+  --bs-table-hover-color: var(--oy-text);
+  --bs-table-border-color: var(--oy-border);
+  border-radius: var(--oy-radius);
+  overflow: hidden;
+}
+.oy-table thead th {
+  color: var(--oy-gold);
+  text-transform: uppercase;
+  font-size: 12px;
+  letter-spacing: 0.04em;
+  border-bottom: 1px solid var(--oy-gold);
+}
+
 .support-banner {
-  background: linear-gradient(135deg, #667eea 0%, var(--color-primary) 100%);
+  background: linear-gradient(135deg, #1f1f26 0%, #0b0b0d 100%);
+  border: 1px solid var(--oy-gold);
   border-radius: 15px;
   padding: 2rem;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  box-shadow: var(--oy-shadow-gold);
   position: relative;
   overflow: hidden;
 }
+.oy-support-title { color: var(--oy-gold); }
+.oy-support-text { color: var(--oy-text-muted); }
 
 .support-banner::before {
   content: '';
@@ -152,7 +174,7 @@ onMounted(() => {
   right: -50%;
   width: 200%;
   height: 200%;
-  background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 0%, transparent 70%);
+  background: radial-gradient(circle, rgba(var(--oy-gold-rgb), 0.10) 0%, transparent 70%);
   animation: float 6s ease-in-out infinite;
 }
 

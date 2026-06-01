@@ -45,7 +45,7 @@ defineProps({
 
 <template>
   <div>
-    <div class="bg-white mb-3" :class="{ 'tab-sticky': tabSticky }" style="box-shadow: 0px 2px 6px 0px #00000026;">
+    <div class="mb-3" :class="{ 'tab-sticky': tabSticky }" style="background: var(--oy-surface); box-shadow: 0px 2px 12px 0px rgba(0,0,0,0.35);">
       <div class="container">
         <ul class="nav nav-pills special-tab" :id="tabId" role="tablist">
           <li v-for="(item, index) in items" :key="`Tab item ${index}`" class="nav-item" role="presentation">

@@ -222,11 +222,13 @@ export default {
   padding: 0 !important;
 }
 .pagination-btn {
-  background-color: white !important;
-  box-shadow: 0 0 5px #00000011 !important;
+  background-color: var(--oy-surface-2) !important;
+  color: var(--oy-text) !important;
+  box-shadow: 0 0 5px rgba(0,0,0,0.3) !important;
 }
 .pagination-btn[disabled] {
-  background-color: #efefef !important;
+  background-color: var(--oy-surface) !important;
+  color: var(--oy-text-dim) !important;
   box-shadow: none !important;
 }
 </style>

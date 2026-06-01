@@ -1,21 +1,22 @@
 :root {
-    --color-primary: #03045E;
-    --color-text: #232323;
-    --color-background: #FFFFFF;
+    --color-primary: var(--oy-gold);
+    --color-text: var(--oy-text);
+    --color-background: var(--oy-bg);
 }
 
 
 body{
-    background:#E4E5E6 !important;
+    background: var(--oy-bg) !important;
+    color: var(--oy-text);
 }
 
 
 .text-primary, a.text-primary{
-    color: var(--color-primary) !important;
+    color: var(--oy-gold) !important;
 }
 
 .white-bg{
-    background-color:#fff;
+    background-color: var(--oy-surface);
 }
 
 .spinner-border{

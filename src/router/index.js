@@ -17,19 +17,19 @@ const router = createRouter({
       path: '/',
       name: 'login',
       component: () => import('../views/LoginView.vue'),
-      meta: { title: 'Goldman Sachs', middlewares: ['guest'], page_blank: true, transition_name: 'fade' }
+      meta: { title: 'Oyoyo', middlewares: ['guest'], page_blank: true, transition_name: 'fade' }
     },
     {
       path: '/register',
       name: 'register',
       component: () => import('../views/RegisterView.vue'),
-      meta: { title: 'Register - Goldman Sachs', middlewares: ['guest'], page_blank: true, transition_name: 'fade' }
+      meta: { title: 'Inscription - Oyoyo', middlewares: ['guest'], page_blank: true, transition_name: 'fade' }
     },
     {
       path: '/dashboard',
       name: 'dashboard',
       component: DashboardView,
-      meta: { title: 'Goldman Sachs', middlewares: ['auth'], page_blank: false, transition_name: 'slide' }
+      meta: { title: 'Oyoyo', middlewares: ['auth'], page_blank: false, transition_name: 'slide' }
     },
     // {
     //   path: '/machines',
@@ -86,8 +86,8 @@ router.beforeEach((to, from) => {
     store.transition_name = 'slide';
   }
 
-  document.title = to.meta.title || "Goldman Sachs";
-  store.page_title = to.meta.title || "Goldman Sachs";
+  document.title = to.meta.title || "Oyoyo";
+  store.page_title = to.meta.title || "Oyoyo";
 
   if(to.meta.page_blank != null) {
     store.page_blank = to.meta.page_blank;

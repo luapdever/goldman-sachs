@@ -188,8 +188,10 @@ onMounted(() => {
   margin: auto;
 }
 .avatar {
-    background-color: #00678F;
-    color: white;
+    background: var(--oy-gold-grad);
+    color: var(--oy-bg);
+    font-weight: 700;
+    box-shadow: var(--oy-shadow-gold);
     width: 80px;
     height: 80px;
     display: flex;

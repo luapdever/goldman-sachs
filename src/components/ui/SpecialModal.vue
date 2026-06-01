@@ -91,9 +91,9 @@ export default {
 
 <style scoped>
 .modal.header-light .modal-header {
-  background-color: white;
+  background-color: var(--oy-surface-2);
 }
 .modal.header-light .modal-body {
-  background-color: #F3F3F1;
+  background-color: var(--oy-surface);
 }
 </style>

@@ -11,7 +11,7 @@ const store = useMainStore()
 <template>
     <div v-if="['dashboard', 'machines'/* , 'profile' */].includes($route.name)" class="bottom-action">
         <button type="button" data-bs-toggle="offcanvas" data-bs-target="#addinvestment" aria-controls="addinvestment">
-            <Plus style="font-size: 20px;" class="text-white" /> Investir
+            <Plus style="font-size: 20px;" /> Investir
         </button>
     </div>
 
@@ -45,14 +45,19 @@ export default {
     z-index: 9999;
 }
 .bottom-action button {
-    background: none;
     border: none;
-    background: var(--color-primary);
-    color: white;
-    padding: 10px 20px;
+    background: var(--oy-gold-grad);
+    color: var(--oy-bg);
+    font-weight: 700;
+    padding: 12px 22px;
     border-radius: 30px;
-    box-shadow: 0px 4px 6px 0px rgba(54, 64, 73, 0.20);
+    box-shadow: var(--oy-shadow-gold);
     cursor: pointer;
+    transition: .25s;
+}
+.bottom-action button:hover {
+    filter: brightness(1.06);
+    transform: translateY(-1px);
 }
 
 @media screen and (min-width: 993px) {

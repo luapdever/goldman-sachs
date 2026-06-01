@@ -50,7 +50,8 @@ const modal_shown = computed({
   width: 100%;
   height: 100vh;
   z-index: 9999999;
-  background: #23232355;
+  background: rgba(0, 0, 0, 0.62);
+  backdrop-filter: blur(2px);
   overflow: hidden;
   transition: all .2s;
 }
@@ -63,8 +64,9 @@ const modal_shown = computed({
   width: 100%;
   max-height: 80%;
   overflow-y: auto;
-  background-color: white;
-  background: #FFFFFF;
+  background-color: var(--oy-surface);
+  color: var(--oy-text);
+  border: 1px solid var(--oy-border);
   transition: all .4s;
 }
 .base-modal .base-modal-dialog.bottom {

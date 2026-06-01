@@ -32,7 +32,7 @@ self.addEventListener("push", (event) => {
         
         // IF NOT show notification
         self.registration.showNotification(
-            data.title ?? "Goldman Sachs",
+            data.title ?? "Oyoyo",
             {
                 body: data.body ?? data,
                 icon: "./img/icons/logo-gs-192.png",

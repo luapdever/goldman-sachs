@@ -88,8 +88,9 @@ export default {
 .search-input {
   width: 100%;
   max-width: 500px;
-  background-color: #F3F3F1;
-  border: none;
+  background-color: var(--oy-surface-2);
+  color: var(--oy-text);
+  border: 1px solid var(--oy-border);
   border-radius: 30px;
   margin-right: 20px;
 }

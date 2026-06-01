@@ -348,13 +348,14 @@ input::placeholder, input {
     display: none;
 }
 .files-list>div {
-    background-color: #001A24;
-    color: white;
+    background-color: var(--oy-surface-2);
+    color: var(--oy-text);
 }
 .files-list .close-btn button {
     width: 30px;
     height: 30px;
-    background-color: white;
+    background-color: var(--oy-gold);
+    color: var(--oy-bg);
     border: none;
     border-radius: 50%;
     display: flex;
@@ -392,7 +393,7 @@ input::placeholder, input {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    background-color: white;
+    background-color: var(--oy-surface-2);
     padding: 2px;
     border-radius: 3px;
 }

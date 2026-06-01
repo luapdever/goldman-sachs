@@ -1,12 +1,44 @@
-/* color palette from <https://github.com/vuejs/theme> */
+/* ============================================================
+   OYOYO — Charte « gold premium » (dark luxe)
+   Design tokens centralisés, réutilisés dans tout le projet.
+   ============================================================ */
 :root {
-  --color-primary: #03045E;
-  --color-text: #232323;
-  --color-background: #FFFFFF;
-}
+  /* Surfaces */
+  --oy-bg:          #0B0B0D; /* fond global noir profond */
+  --oy-surface:     #15151A; /* cartes / panneaux */
+  --oy-surface-2:   #1F1F26; /* surface surélevée, inputs */
+  --oy-surface-3:   #2A2A32; /* hover / surface active */
+  --oy-border:      #2A2A32; /* bordures discrètes */
+  --oy-border-soft: #1E1E25;
 
-@media (prefers-color-scheme: dark) {
-  
+  /* Or */
+  --oy-gold:        #D4AF37; /* or principal */
+  --oy-gold-soft:   #E8C765; /* or clair (hover/accent) */
+  --oy-gold-deep:   #A8842A; /* or foncé (pressed) */
+  --oy-gold-rgb:    212, 175, 55;
+  --oy-gold-grad:   linear-gradient(135deg, #BF953F, #FCF6BA, #B38728, #FBF5B7, #AA771C);
+  --oy-gold-grad-soft: linear-gradient(135deg, #D4AF37, #F5D77E, #B38728);
+
+  /* Texte */
+  --oy-text:        #F5F2EA; /* blanc cassé */
+  --oy-text-muted:  #9A9AA0;
+  --oy-text-dim:    #6E6E76;
+
+  /* Statuts */
+  --oy-success:     #3AC977;
+  --oy-danger:      #FF5E5E;
+  --oy-warning:     #E8C765;
+  --oy-info:        #5AB6D8;
+
+  /* Ombres premium */
+  --oy-shadow:      0 10px 30px rgba(0, 0, 0, 0.45);
+  --oy-shadow-gold: 0 8px 24px rgba(var(--oy-gold-rgb), 0.18);
+  --oy-radius:      14px;
+
+  /* Compat : anciennes variables remappées sur la nouvelle charte */
+  --color-primary:    var(--oy-gold);
+  --color-text:       var(--oy-text);
+  --color-background: var(--oy-bg);
 }
 
 @font-face {
