@@ -79,7 +79,12 @@ const steps = ref([
         required: true,
         autocomplete: 'off',
         value: ""
-      },
+      }
+    ]
+  },
+  {
+    label: "Dépôt & preuve",
+    fields: [
       {
         name: 'proof',
         label: 'Capture du dépôt',
@@ -93,6 +98,45 @@ const steps = ref([
     ]
   },
 ]);
+
+// Méthodes de dépôt (adresses & instructions) — À CONFIGURER selon vos comptes réels.
+const DEPOSIT_METHODS = {
+  binance: {
+    title: 'Dépôt via Binance Pay',
+    addrLabel: 'Binance Pay ID',
+    address: '123456789',
+    network: '',
+    instructions: [
+      'Ouvrez votre application Binance.',
+      'Allez dans « Pay », puis « Envoyer ».',
+      'Saisissez le Binance Pay ID ci-dessus comme destinataire.',
+      'Envoyez exactement le montant indiqué, puis prenez une capture d\'écran de la confirmation.',
+    ],
+  },
+  wallet: {
+    title: 'Dépôt via Wallet (USDT - TRC20)',
+    addrLabel: 'Adresse de dépôt USDT (TRC20)',
+    address: 'TXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
+    network: 'Réseau : TRON (TRC20)',
+    instructions: [
+      'Ouvrez votre wallet (Trust Wallet, etc.).',
+      'Sélectionnez USDT, puis « Envoyer ».',
+      'Collez l\'adresse de dépôt ci-dessus et choisissez le réseau TRC20.',
+      'Envoyez exactement le montant indiqué, puis prenez une capture d\'écran de la transaction.',
+    ],
+  },
+};
+
+const deposit_method = computed(() => DEPOSIT_METHODS[formData.value.wallet_type] ?? DEPOSIT_METHODS.binance);
+
+const copyDepositAddress = async () => {
+  try {
+    await navigator.clipboard.writeText(deposit_method.value.address);
+    appUtils.toggleGlobalAlert("Adresse copiée", "success");
+  } catch (e) {
+    appUtils.toggleGlobalAlert("Impossible de copier l'adresse", "danger");
+  }
+};
 
 const currentStepFields = computed(() => steps.value[activeStep.value]?.fields ?? []);
 const isLastStep = computed(() => activeStep.value === steps.value.length - 1);
@@ -328,6 +372,34 @@ onMounted(() => {
 
               </div>
 
+              <!-- Étape dépôt : adresse + instructions selon le mode de paiement -->
+              <div v-if="isLastStep" class="deposit-box mt-3 mb-3">
+                <div class="deposit-head">
+                  <span class="deposit-title">{{ deposit_method.title }}</span>
+                  <span v-if="deposit_method.network" class="deposit-network">{{ deposit_method.network }}</span>
+                </div>
+
+                <div class="deposit-amount">
+                  Montant à déposer : <span class="fw-bold">{{ formData.amount }} USD</span>
+                </div>
+
+                <div class="deposit-addr-label">{{ deposit_method.addrLabel }}</div>
+                <div class="deposit-addr">
+                  <span class="deposit-addr-value">{{ deposit_method.address }}</span>
+                  <button type="button" class="deposit-copy" @click.prevent="copyDepositAddress()">
+                    <ContentCopy style="font-size: 18px;" />
+                  </button>
+                </div>
+
+                <ol class="deposit-instructions">
+                  <li v-for="(line, i) in deposit_method.instructions" :key="'inst' + i">{{ line }}</li>
+                </ol>
+
+                <p class="deposit-note">
+                  Après votre dépôt, téléversez ci-dessous la capture d'écran du paiement pour validation.
+                </p>
+              </div>
+
               <div v-if="activeStep > 0" class="mt-3 mb-3">
                 <base-input
                   v-for="field in currentStepFields"
@@ -373,6 +445,86 @@ onMounted(() => {
 </template>
 
 <style scoped>
+.deposit-box {
+  background: var(--oy-surface-2);
+  border: 1px solid var(--oy-border);
+  border-left: 4px solid var(--oy-gold);
+  border-radius: 12px;
+  padding: 16px;
+}
+.deposit-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: 10px;
+}
+.deposit-title {
+  color: var(--oy-gold);
+  font-weight: 700;
+  font-size: 15px;
+}
+.deposit-network {
+  font-size: 12px;
+  color: var(--oy-text-muted);
+  background: rgba(var(--oy-gold-rgb), 0.12);
+  padding: 2px 8px;
+  border-radius: 20px;
+}
+.deposit-amount {
+  font-size: 14px;
+  color: var(--oy-text);
+  margin-bottom: 12px;
+}
+.deposit-addr-label {
+  font-size: 12px;
+  color: var(--oy-text-muted);
+  margin-bottom: 4px;
+}
+.deposit-addr {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--oy-bg);
+  border: 1px dashed var(--oy-gold);
+  border-radius: 8px;
+  padding: 10px 12px;
+  margin-bottom: 12px;
+}
+.deposit-addr-value {
+  flex: 1;
+  word-break: break-all;
+  font-family: monospace;
+  font-size: 13px;
+  color: var(--oy-gold);
+}
+.deposit-copy {
+  flex-shrink: 0;
+  background: var(--oy-gold-grad);
+  color: var(--oy-bg);
+  border: none;
+  border-radius: 6px;
+  width: 34px;
+  height: 34px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+.deposit-instructions {
+  margin: 0 0 8px 0;
+  padding-left: 18px;
+  color: var(--oy-text);
+  font-size: 13px;
+  line-height: 1.6;
+}
+.deposit-note {
+  margin: 0;
+  font-size: 12px;
+  color: var(--oy-text-muted);
+}
+
 .ticket-id-copy input {
   border-bottom-right-radius: 0;
   border-top-right-radius: 0;
