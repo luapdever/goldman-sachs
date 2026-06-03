@@ -32,6 +32,12 @@ const router = createRouter({
       meta: { title: 'Inscription - Oyoyo', middlewares: ['guest'], page_blank: true, transition_name: 'fade' }
     },
     {
+      path: '/forgot-password',
+      name: 'forgot-password',
+      component: () => import('../views/ForgotPasswordView.vue'),
+      meta: { title: 'Mot de passe oublié - Oyoyo', middlewares: ['guest'], page_blank: true, transition_name: 'fade' }
+    },
+    {
       path: '/dashboard',
       name: 'dashboard',
       component: DashboardView,

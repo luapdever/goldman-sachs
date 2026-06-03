@@ -161,8 +161,13 @@ onMounted(() => {
             <span v-if="!inSubmitting">Connexion</span>
             <span v-else class="gs-loader" role="status"></span>
           </base-button>
+          <div class="mt-2">
+            <router-link :to="{ name: 'forgot-password' }" class="btn-link">
+              Mot de passe oublié ?
+            </router-link>
+          </div>
           <div class="mt-3">
-            Nouveau ? 
+            Nouveau ?
             <router-link :to="{ name: 'register' }" class="btn-link">
               Créer un compte
             </router-link>
