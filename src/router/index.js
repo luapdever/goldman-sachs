@@ -15,9 +15,15 @@ const router = createRouter({
   routes: [
     {
       path: '/',
+      name: 'home',
+      component: () => import('../views/LandingView.vue'),
+      meta: { title: 'Oyoyo — Investissez en toute simplicité', page_blank: true, transition_name: 'fade' }
+    },
+    {
+      path: '/login',
       name: 'login',
       component: () => import('../views/LoginView.vue'),
-      meta: { title: 'Oyoyo', middlewares: ['guest'], page_blank: true, transition_name: 'fade' }
+      meta: { title: 'Connexion - Oyoyo', middlewares: ['guest'], page_blank: true, transition_name: 'fade' }
     },
     {
       path: '/register',
