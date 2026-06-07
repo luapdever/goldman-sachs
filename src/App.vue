@@ -91,10 +91,6 @@ onMounted(() => {
 
 <template>
   <div>
-    <div v-if="!store.app_is_ready" id="loader">
-      <div class="spinner-border text-primary" role="status"></div>
-    </div>
-    
     <TheAlertContainer />
     
     <TheHeader v-if="!store.page_blank" />

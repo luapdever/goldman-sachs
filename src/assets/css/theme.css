@@ -720,10 +720,6 @@ textarea {
 
 
 /* *************** OYOYO — Finitions dark-luxe ****************** */
-#loader {
-    background: var(--oy-bg) !important;
-}
-
 /* Labels de formulaire lisibles sur fond sombre (override du kit) */
 .form-label,
 .form-group .form-label,

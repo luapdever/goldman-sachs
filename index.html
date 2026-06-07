@@ -19,10 +19,168 @@
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Oyoyo</title>
+
+  <!-- ===================== LOADER OYOYO (pur HTML/CSS, indépendant de Vue) ===================== -->
+  <style>
+    #oy-boot-loader {
+      position: fixed;
+      inset: 0;
+      z-index: 999999;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: radial-gradient(circle at 50% 38%, #15151A 0%, #0B0B0D 72%);
+      transition: opacity .6s ease, visibility .6s ease;
+    }
+    #oy-boot-loader.oy-hide { opacity: 0; visibility: hidden; }
+    .oy-boot-inner {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 22px;
+    }
+    /* Pièce d'or qui tourne */
+    .oy-boot-coin {
+      position: relative;
+      width: 88px;
+      height: 88px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #BF953F, #FCF6BA, #B38728, #FBF5B7, #AA771C);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 0 0 4px rgba(212, 175, 55, .18), 0 8px 24px rgba(212, 175, 55, .25);
+      animation: oy-coin-flip 1.8s infinite cubic-bezier(.6, .05, .3, .95);
+    }
+    .oy-boot-coin b {
+      font: 800 40px/1 "Century Gothic", Arial, sans-serif;
+      color: #0B0B0D;
+    }
+    .oy-boot-coin i {
+      position: absolute;
+      inset: 0;
+      border-radius: 50%;
+      background: linear-gradient(115deg, transparent 30%, rgba(255, 255, 255, .55) 48%, transparent 60%);
+      animation: oy-shine 1.8s infinite;
+    }
+    @keyframes oy-coin-flip {
+      0%   { transform: rotateY(0deg)   scale(1); }
+      50%  { transform: rotateY(180deg) scale(1.06); }
+      100% { transform: rotateY(360deg) scale(1); }
+    }
+    @keyframes oy-shine {
+      0%, 100% { opacity: 0; transform: translateX(-30%); }
+      50%      { opacity: 1; transform: translateX(30%); }
+    }
+    /* Lettres OYOYO rebondissantes */
+    .oy-boot-word {
+      display: flex;
+      gap: 6px;
+      font: 800 26px/1 "Century Gothic", Arial, sans-serif;
+      letter-spacing: .22em;
+    }
+    .oy-boot-word span {
+      display: inline-block;
+      background: linear-gradient(135deg, #BF953F, #FCF6BA, #B38728, #FBF5B7, #AA771C);
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      color: #D4AF37;
+      animation: oy-bounce-letter 1.2s infinite ease-in-out;
+    }
+    @keyframes oy-bounce-letter {
+      0%, 100% { transform: translateY(0);     opacity: .55; }
+      40%      { transform: translateY(-12px); opacity: 1; }
+    }
+    /* Barre shimmer */
+    .oy-boot-bar {
+      width: 170px;
+      height: 4px;
+      border-radius: 4px;
+      background: #1F1F26;
+      overflow: hidden;
+      position: relative;
+    }
+    .oy-boot-bar span {
+      position: absolute;
+      top: 0;
+      left: -45%;
+      width: 45%;
+      height: 100%;
+      border-radius: 4px;
+      background: linear-gradient(135deg, #BF953F, #FCF6BA, #B38728, #FBF5B7, #AA771C);
+      animation: oy-bar-slide 1.2s infinite ease-in-out;
+    }
+    @keyframes oy-bar-slide {
+      0%   { left: -45%; }
+      100% { left: 100%; }
+    }
+    .oy-boot-tag {
+      margin: 0;
+      font: 400 13px/1.4 "Century Gothic", Arial, sans-serif;
+      color: #9A9AA0;
+      letter-spacing: .04em;
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .oy-boot-coin, .oy-boot-coin i, .oy-boot-word span, .oy-boot-bar span { animation-duration: .001s; }
+    }
+  </style>
 </head>
 
 <body>
+  <!-- Loader visible immédiatement, avant le démarrage de Vue -->
+  <div id="oy-boot-loader" role="status" aria-label="Chargement">
+    <div class="oy-boot-inner">
+      <div class="oy-boot-coin"><b>O</b><i></i></div>
+      <div class="oy-boot-word">
+        <span style="animation-delay:0s">O</span>
+        <span style="animation-delay:.1s">Y</span>
+        <span style="animation-delay:.2s">O</span>
+        <span style="animation-delay:.3s">Y</span>
+        <span style="animation-delay:.4s">O</span>
+      </div>
+      <div class="oy-boot-bar"><span></span></div>
+      <p class="oy-boot-tag">Préparation de votre espace…</p>
+    </div>
+  </div>
+
   <div id="app"></div>
+
+  <!-- Retrait du loader, indépendant de Vue : on attend que #app ait du contenu -->
+  <script>
+    (function () {
+      var MIN_MS = 700;      // durée minimale d'affichage
+      var FALLBACK_MS = 6000; // filet de sécurité
+      var started = Date.now();
+      var removed = false;
+
+      function hide() {
+        if (removed) return;
+        removed = true;
+        var wait = Math.max(0, MIN_MS - (Date.now() - started));
+        setTimeout(function () {
+          var el = document.getElementById('oy-boot-loader');
+          if (!el) return;
+          el.classList.add('oy-hide');
+          setTimeout(function () { if (el && el.parentNode) el.parentNode.removeChild(el); }, 650);
+        }, wait);
+      }
+
+      var app = document.getElementById('app');
+      // Quand Vue a rendu quelque chose dans #app, on masque le loader
+      if (app && 'MutationObserver' in window) {
+        var obs = new MutationObserver(function () {
+          if (app.childNodes.length > 0) { obs.disconnect(); hide(); }
+        });
+        obs.observe(app, { childList: true, subtree: true });
+      } else {
+        window.addEventListener('load', hide);
+      }
+      // Filet de sécurité
+      setTimeout(hide, FALLBACK_MS);
+    })();
+  </script>
+
   <script type="module" src="/src/main.js"></script>
 </body>
 
