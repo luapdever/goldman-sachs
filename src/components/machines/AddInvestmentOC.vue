@@ -26,6 +26,8 @@ const reset_states = ref({})
 
 const activeStep = ref(0);
 const formData = ref({});
+// Prévisualisations des fichiers (capture de dépôt)
+const filePreviews = ref({});
 
 // Configuration des étapes de connexion
 const steps = ref([
@@ -93,7 +95,7 @@ const steps = ref([
         required: true,
         allowed_exts: ["png", "jpeg", "jpg"],
         accept: "image/png,image/jpeg",
-        value: ""
+        value: []
       }
     ]
   },
@@ -408,10 +410,12 @@ onMounted(() => {
                   :type="field.type"
                   :name="field.name"
                   v-model="formData[field.name]"
+                  v-model:modelPreviews="filePreviews"
                   :ph="field.placeholder"
                   :options="field.options"
                   :allowed_exts="field.allowed_exts"
                   :accept="field.accept"
+                  :multiple="field.multiple ?? false"
                   :field-error="appUtils.hasError(field.name)"
                   :required="field.required"
                   :readonly="field.readonly ?? false"
