@@ -95,11 +95,11 @@ onMounted(() => {
                 <div class="card-body">
                   <h5 class="card-title">{{ item?.label ?? "Inconnu" }}</h5>
                   <p class="card-text">Générez <span class="fw-bold">{{ item?.rate }}%</span> de rendement avec cette machine d'extraction. Investissez <span class="fw-bold">{{ item?.amount }} USD</span> et commencez à gagner dès aujourd'hui </p>
-                  <base-button 
-                    :disabled="inSubmitting" 
-                    block 
-                    fixh 
-                    @click.prevent="selectMachine(item?.id)"
+                  <base-button
+                    :disabled="inSubmitting"
+                    block
+                    fixh
+                    @click.prevent.stop="selectMachine(item?.id)"
                   >
                     Investir
                   </base-button>
